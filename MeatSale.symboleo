@@ -6,6 +6,7 @@ Domain meatSaleDomain
   TransportCo isA Role thirdParty with name:String;
   Assessor isA Role thirdParty with name: String;
   Regulator isA Role thirdParty with name: String;
+  Storage isA Role thirdParty with name: String;
   Currency isAn Enumeration(CAD, USD, EUR);
   MeatQuality isAn Enumeration(PRIME, AAA, AA, A);
   //by default controller of an asset is its owner 
