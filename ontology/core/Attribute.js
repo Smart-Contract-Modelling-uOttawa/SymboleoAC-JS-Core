@@ -2,10 +2,12 @@ const { Resource } = require('./Resource.js');
 
 class Attribute extends Resource {
     // Constructor
-    constructor(name,value,allController) {
+    constructor(name,value,parent,allController) {
         super(allController);
         this._name = name;
         this._value = value;
+        this._parent = parent;
+        this._type = 'Attribute'
     }
     //utility function
     read(){

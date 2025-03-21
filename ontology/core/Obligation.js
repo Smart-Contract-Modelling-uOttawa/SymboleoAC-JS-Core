@@ -20,10 +20,13 @@ const ObligationActiveState = {
   InEffect: 'InEffect',
   Suspension: 'Suspension',
 };
-// added controller and in the super as well 
+// Sofana-AC here I added controller and in the super as well 
 class Obligation extends LegalPosition {
-  constructor(name, creditor, debtor, contract, consequent, surviving) {
-    super(name, creditor, debtor, contract, debtor, consequent);
+  constructor(name, creditor, debtor, contract, aLegalSituation, surviving) {
+    super(name, creditor, debtor, contract, debtor, aLegalSituation);
+    //Sofana-AC
+    //this.addController(debtor);
+    //Sofana-AC
     this.setActiveState(ObligationActiveState.Null);
     this.setState(ObligationState.Start);
     this._events = {};
@@ -54,6 +57,51 @@ class Obligation extends LegalPosition {
   }
 
   //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  //getFulfilledTime() {
+    //if(this.state === ObligationState.Fulfillment){
+      //return this._events.Fulfilled.getHappenedTime()
+    //}else{
+      //return null
+    //}
+  //}
+
+  isActive() {
+    return this.state === ObligationState.Active;
+  }
+
+  //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  getActivitedTime() {
+    if(this.state === ObligationState.Active){
+      return this._events.Activated.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  getViolatedTime() {
+    if(this.state === ObligationState.Violation){
+      return this._events.Violated.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+   //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  getSuspendedTime() {
+    if(this.activeState === ObligationActiveState.Suspension){
+      return this._events.Suspended.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+   //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
   getFulfilledTime() {
     if(this.state === ObligationState.Fulfillment){
       return this._events.Fulfilled.getHappenedTime()
@@ -62,18 +110,43 @@ class Obligation extends LegalPosition {
     }
   }
 
-  isActive() {
-    return this.state === ObligationState.Active;
-  }
-
-  //AC
-  getActivitedTime() {
-    if(this.state === ObligationState.Active){
-      return this._events.Activated.getHappenedTime()
+  //AC - 
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  getCreatedTime() {
+    if(this.state === ObligationState.Create){
+      return this._events.Triggered.getHappenedTime()
     }else{
       return null
     }
   }
+
+  //AC - not test it yet for meatsale
+  //utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  getDischargedTime() {
+    if(this.state === ObligationState.Discharge){
+      return this._events.Discharged.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  getUnsuccessfulterminationTime() {
+    if(this.state === ObligationState.UnsuccessfulTermination){
+      return this._events.Terminated.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
+  //finished
+
+
+  
+  
 
   isUnsuccessfulTermination() {
     return this.state === ObligationState.UnsuccessfulTermination;
@@ -381,6 +454,7 @@ class Obligation extends LegalPosition {
     this.state = aStatus;
 
     // entry actions and do activities
+
     switch (this.state) {
       case ObligationState.Active:
         if (this.activeState === ObligationActiveState.Null) {
@@ -423,7 +497,8 @@ class Obligation extends LegalPosition {
     super.delete();
   }
 
-
+  //AC 
+  //get
 }
 
 module.exports.Obligation = Obligation;

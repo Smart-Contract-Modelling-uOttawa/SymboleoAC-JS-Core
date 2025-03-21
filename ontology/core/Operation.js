@@ -27,6 +27,25 @@ class Operation extends Resource {
         return this._performer.indexOf(aPerformer);
     }
 
+  //AC
+  //utlity function
+  findPerformer(aPerformer){
+    let isPerformer = false
+    ////console.log("I am inside findController")
+    //this._controller.find(obj => obj === aController)
+    ////console.log(aController)
+    isPerformer = this._performer.some(obj => obj._name === aPerformer._name && obj._type === aPerformer._type)
+    console.log(isPerformer); // true
+    //this._performer.forEach(obj => {if(obj === aPerformer){
+      ////console.log("I am inside if in findController")
+      //isPerformer = true;
+      return isPerformer
+    //}  ////console.log("obj")
+     ////console.log(obj)
+  //})
+    //return  isPerformer  
+  }
+
     static minimumNumberOfPerformer() {
         return 0;
     }

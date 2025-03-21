@@ -13,10 +13,13 @@ const decision = {
     revoke: 'revoke'
 };
 
+//add antoher cnonsturter for Rule that includes attribute  
+//add another cnonsturter for rule that includes operation 
 
 class Rule{
     // CONSTRUCTOR
     constructor(aDecision, aPermission, aAccessedResource, aAccessedRole, aByRole, aACPolicy) {
+        //this.ruleId = aRuleId;
         this.permission = aPermission
         this.decision = aDecision
         this._type = "Rule"
@@ -29,7 +32,37 @@ class Rule{
         if (!this.setByRole(aByRole)) {
             throw new Error("Unable to create Rule due to aByRole.");
         }
+        //console.log("--------------------")
+        //console.log(aACPolicy)
+        //const didAddACPolicy = this.setACPolicy(aACPolicy);
+
+        //return true
+
+
+        //if (!didAddACPolicy) {
+           // throw new Error("Unable to create Rule due to aACPolicy.");
+       // }
     }
+
+    // Constructor for adding permesstion on attribute of specifc resource
+    static withAttribute(aPermission, attribute, aAccessedRole, aACPolicy) {
+        return new Rule(aPermission, attribute, aAccessedRole, aACPolicy);
+    }
+
+    // Constructor for adding permesstion on operation for specifc resource
+    static withOperation(aPermission, operation, aAccessedRole, aACPolicy) {
+        return new Rule(aPermission, operation, aAccessedRole, aACPolicy);
+    }
+
+
+// INTERFACE
+/* not by the generator
+setRuleId(aRuleId) {
+    let wasSet = false;
+    this.ruleId = aRuleId;
+    wasSet = true;
+    return wasSet;
+}*/
 
 setPermission(aPermission) {
     let wasSet = false;
@@ -37,7 +70,10 @@ setPermission(aPermission) {
     wasSet = true;
     return wasSet;
 }
-
+/*not by the generator
+getRuleId() {
+    return this.ruleId;
+}*/
 
 getPermission() {
     return this.permission;
@@ -61,6 +97,7 @@ getAccessedResource() {
 }
 
 // Code from template association_GetOne
+// getAccessedRole method
 getAccessedRole() {
     return this.accessedRole;
 }
@@ -70,11 +107,13 @@ getByRole() {
 }
 
 // Code from template association_GetOne
+// getACPolicy method
 getACPolicy() {
     return this.aCPolicy;
 }
 
 // Code from template association_SetUnidirectionalOne
+// setAccessedResource method
 setAccessedResource(aNewAccessedResource) {
     let wasSet = false;
     if (aNewAccessedResource !== null) {
@@ -85,6 +124,7 @@ setAccessedResource(aNewAccessedResource) {
 }
 
 // Code from template association_SetUnidirectionalOne
+// setAccessedRole method
 setAccessedRole(aNewAccessedRole) {
     let wasSet = false;
     if (aNewAccessedRole !== null) {
@@ -110,6 +150,14 @@ setACPolicy(aACPolicy) {
     if (aACPolicy !== null && !(typeof aACPolicy === 'undefined')) {
         aACPolicy.addRule(this);
         wasSet = true;
+        //let existingACPolicy = this.aCPolicy;
+        //this.aCPolicy = aACPolicy;
+        ////console.log("existingACPolicy")
+        ////console.log(existingACPolicy)
+        //if (existingACPolicy !== null && !(typeof existingACPolicy === 'undefined'))
+          //  if(!(existingACPolicy === aACPolicy)) {//!existingACPolicy.equals(aACPolicy)
+           // existingACPolicy.removeRule(this);
+        //
     }else{
         aACPolicy.removeRule(this);
     }

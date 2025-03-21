@@ -20,10 +20,16 @@ const PowerActiveState = {
   Suspension: 'Suspension',
 };
 
-// AC-added controller to constructor and super 
+// Sofana-AC here I added controller to constructor and super 
 class Power extends LegalPosition {
   constructor(name,creditor, debtor, contract,consequent) {
     super(name, creditor, debtor, contract, creditor,consequent);
+     //Sofana-AC
+     //controllerList = []
+    //console.log("printing controller for power from class Power")
+    //console.log(creditor)
+    //this.addController(creditor);
+     //Sofana-AC
     this.setActiveState(PowerActiveState.Null);
     this.setState(PowerState.Start);
     this._events = {};
@@ -89,6 +95,58 @@ class Power extends LegalPosition {
 
     return wasEventProcessed;
   }
+
+  //AC
+  //utility function 
+  getSuccessfulterminationTime(){
+    if(this.state === PowerState.SuccessfulTermination){
+      return this._events.Exerted.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  //utility function 
+  getUnsuccessfulterminationTime(){
+    if(this.state === PowerState.UnsuccessfulTermination){
+      return this._events.Terminated.getHappenedTime() === null ? this._events.Expired.getHappenedTime():this._events.Terminated.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  //utility function 
+  getSuspendedTime(){
+    if(this.state === PowerActiveState.Suspension){
+      return this._events.suspended.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  //utility function
+  getActivitedTime(){
+    if(this.state === PowerState.Active){
+      return this._events.Activated.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+  //AC
+  //utility function
+  getCreatedTime(){
+    if(this.state === PowerState.Create){
+      return this._events.Triggered.getHappenedTime()
+    }else{
+      return null
+    }
+  }
+
+
 
   trigerredConditional() {
     let wasEventProcessed = false;

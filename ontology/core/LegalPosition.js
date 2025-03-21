@@ -1,26 +1,66 @@
 const { SymboleoContract } = require('./SymboleoContract.js');
+//sofana
 const { Party } = require('./Party.js');
 const { Resource } = require('./Resource.js');
+const { LegalSituation } = require('./LegalSituation.js');
+const _ = require('lodash');
 
 
-//AC-added extends
-//AC-added controller in the constucture
+//sofana
+
+//sofana-AC here I added extends
+//sofana-AC here I added controller in the constucture
+//Sofana-AC here I added name, controller to super, name cuz I get an error without it, and I need it to work for equlas in Resource, myabe I need to define id insted of name for class resource
+//Sofana-AC here I added Rule and in the super as well 
+//Sofana-Ac for controller the default we add it to the constrctor in the legal position class, and here (serlizer) we retrive the last value of controller in obligation.controller
 class LegalPosition extends Resource  {
-  constructor(name, creditor, debtor, contract,controller,consequent) {
+  constructor(name, creditor, debtor, contract,controller,aLegalSituation) {
+    //Sofana-AC
     super(controller)
+    //Sofana-AC
     this.name = name;
     this.creditor = creditor;
     this.debtor = debtor;
     this.contract = contract;
     this._performer = []; 
+    //Sofana-AC (1) to add default valur to performer 
     this._performer.push(debtor);
+    //Sofana-AC
     this._liable = [];
+    //Sofana-AC (2) to add default valur to liable 
     this._liable.push(debtor);
+    //Sofana-AC
     this._rightHolder = [];
+    //Sofana-AC (3) to add default valur to rightholder 
     this._rightHolder.push(creditor);
+    //Sofana-AC
     this.asset = null;
-    this.antecedent = null;
-    this.consequent = consequent;
+    //AC
+    ////console.log("aLegalSituation")
+    ////console.log(aLegalSituation)
+    this.antecedent = [];
+    this.consequent = [];
+
+    if(typeof aLegalSituation === 'object' && !Array.isArray(aLegalSituation)){
+      if(aLegalSituation === null)
+      return
+      if(typeof aLegalSituation === 'undefined')
+      return
+      this.antecedent = aLegalSituation.getAntecedentOfAll();
+      this.consequent = aLegalSituation.getConsequentOfAll();
+    }else{//this if check if the controller is a list of objects 
+      if (typeof aLegalSituation === 'undefined' || aLegalSituation === null || aLegalSituation.length <= 0 || typeof aLegalSituation[0] === 'undefined') { //|| !Array.isArray(allController)
+        //////console.log("return without adding in resource-------------------------------------");
+        return;
+      }
+      this.antecedent = aLegalSituation.getAntecedentOfAll();
+      this.consequent = aLegalSituation.getConsequentOfAll();
+    }//else
+
+   
+    //this.antecedent = aLegalSituation.getAntecedentOfAll();
+    //AC
+    //this.consequent = aLegalSituation.getConsequentOfAll();
     this.trigger = null;
   }
 
@@ -44,6 +84,30 @@ class LegalPosition extends Resource  {
   indexOfPerformer(aPerformer) {
     const index = this.performer.findIndex((o) => o.equals(aPerformer));
     return index;
+  }
+  
+  //AC
+  //utlity function
+  findPerformer(aPerformer){
+    //console.log("aPerformer")
+    //console.log(aPerformer)
+    //console.log("this._performer")
+    //console.log(this._performer)
+
+    let isPerformer = false
+    //////console.log("I am inside findController")
+    //this._controller.find(obj => obj === aController)
+    //////console.log(aController)
+    isPerformer = this._performer.some(obj => obj._name === aPerformer._name && obj._type === aPerformer._type)
+    ////console.log(isPerformer); // true
+    //this._performer.forEach(obj => {if(obj === aPerformer){
+      //////console.log("I am inside if in findController")
+      //isPerformer = true;
+      return isPerformer
+    //}  //////console.log("obj")
+     //////console.log(obj)
+  //})
+    //return  isPerformer  
   }
 
   getLiable(index) {
@@ -90,30 +154,39 @@ class LegalPosition extends Resource  {
     return index;
   }
 
+  //AC
+  //utlity function
+  findRightHolder(aRightHolder){
+    let isRightHolder = false
+    //////console.log("I am inside findController")
+    //this._controller.find(obj => obj === aController)
+    //////console.log(aController)
+    isRightHolder = this._rightHolder.some(obj => obj._name === aRightHolder._name && obj._type === aRightHolder._type)
+    ////console.log(isRightHolder); // true
+    //this._performer.forEach(obj => {if(obj === aPerformer){
+      //////console.log("I am inside if in findController")
+      //isPerformer = true;
+      return isRightHolder
+    //}  //////console.log("obj")
+     //////console.log(obj)
+  //})
+    //return  isPerformer  
+  }
+
   static minimumNumberOfPerformer() {
     return 0;
   }
-
+  
+  //AC
+  //Modefication - utlity function 
   addPerformer(aPerformer) {
-    console.log("I am inside addPerformer in Legal position classssssssssssssssssssssssssssss")
     let wasAdded = false;
-    if (this.performer.some((o) => o.equals(aPerformer))) {
-      return false;
+    if (!this.findPerformer(aPerformer) && !(typeof aPerformer === 'undefined') 
+    && !(aPerformer === null)) {
+    this._performer.push(aPerformer);
+    wasAdded = true;
     }
-    this.performer.push(aPerformer);
-    console.log("I am inside addPerformer in Legal position classssssssssssssssssssssssssssss")
-    if (aPerformer.indexOfPerformerOf(this) !== -1) { 
-      console.log("I am inside")
-      wasAdded = true;
-    } else {
-      console.log("I am in index of else not added")
-      wasAdded = aPerformer.addPerformerOf(this);
-      if (!wasAdded) {
-        const index = this.performer.findIndex((o) => o.equals(aPerformer));
-        this.performer.splice(index, 1);
-      }
-    }
-    return wasAdded;
+    return wasAdded;  
   }
 
   removePerformer(aPerformer) {
@@ -139,22 +212,35 @@ class LegalPosition extends Resource  {
     return 0;
   }
 
+  //AC
+  //Modification
   addLiable(aLiable) {
     let wasAdded = false;
-    if (this.liable.some((o) => o.equals(aLiable))) {
-      return false;
+    if (!this.findLiable(aLiable) && !(typeof aLiable === 'undefined') 
+    && !(aLiable === null)) {
+    this._liable.push(aLiable);
+    wasAdded = true;
     }
-    this.liable.push(aLiable);
-    if (aLiable.indexOfLiableOf(this) !== -1) {
-      wasAdded = true;
-    } else {
-      wasAdded = aLiable.addLiableOf(this);
-      if (!wasAdded) {
-        const index = this.liable.findIndex((o) => o.equals(aLiable));
-        this.liable.splice(index, 1);
-      }
-    }
-    return wasAdded;
+    return wasAdded;  
+  }
+
+  //AC
+  //utlity function
+  findLiable(aLiable){
+    let isLiable = false
+    //////console.log("I am inside findController")
+    //this._controller.find(obj => obj === aController)
+    //////console.log(aController)
+    isLiable = this._liable.some(obj => obj._name === aLiable._name && obj._type === aLiable._type)
+    ////console.log(isLiable); // true
+    //this._performer.forEach(obj => {if(obj === aPerformer){
+      //////console.log("I am inside if in findController")
+      //isPerformer = true;
+      return isLiable
+    //}  //////console.log("obj")
+     //////console.log(obj)
+  //})
+    //return  isPerformer  
   }
 
   removeLiable(aLiable) {
@@ -180,22 +266,16 @@ class LegalPosition extends Resource  {
     return 0;
   }
 
+  //AC
+  //Modification
   addRightHolder(aRightHolder) {
     let wasAdded = false;
-    if (this.rightHolder.some((o) => o.equals(aRightHolder))) {
-      return false;
+    if (!this.findRightHolder(aRightHolder) && !(typeof aRightHolder === 'undefined') 
+    && !(aRightHolder === null)) {
+    this._rightHolder.push(aRightHolder);
+    wasAdded = true;
     }
-    this.rightHolder.push(aRightHolder);
-    if (aRightHolder.indexOfRightHolderOf(this) !== -1) {
-      wasAdded = true;
-    } else {
-      wasAdded = aRightHolder.addRightHolderOf(this);
-      if (!wasAdded) {
-        const index = this.rightHolder.findIndex((o) => o.equals(aRightHolder));
-        this.rightHolder.splice(index, 1);
-      }
-    }
-    return wasAdded;
+    return wasAdded; 
   }
 
   removeRightHolder(aRightHolder) {

@@ -4,6 +4,7 @@ class AbstractEvent extends Resource{
     constructor(allControllers) {
           super(allControllers)
           this.attributes = [];
+          //this.super(allControllers);
           
         }
 

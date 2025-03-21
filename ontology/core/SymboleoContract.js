@@ -10,6 +10,7 @@ const {
   InternalEventSource,
   InternalEventType,
 } = require('./InternalEvents.js');
+const { Contract } = require('fabric-contract-api');
 
 const ContractState = {
   Form: 'Form',
@@ -26,11 +27,16 @@ const ContractActiveState = {
   Rescission: 'Rescission',
 };
 
-//AC- extends and controller to constructor and super
+//Sofana-AC I added extends and controller to constructor and super
+//Sofana-AC, if it sends list we will add a list, if not we will push them as default
+//***Sofana-AC, for initilization contoller for the first time (setContoller) did not work, instead we call addController
 class SymboleoContract extends Resource {
   constructor(name,controllerList) {//controllerList
     //Sofana-AC
     super(controllerList);
+    //Sofana-AC
+    //controllerList = [];
+    //Sofana-AC
     const now = new Date();
     // eslint-disable-next-line max-len
     this.id = `${name}_${now.getUTCFullYear()}${now.getUTCMonth()}${now.getUTCDate()}${now.getUTCHours()}`;
@@ -505,12 +511,38 @@ class SymboleoContract extends Resource {
     return 2;
   }
 
+
+  //AC
+  getRole(aName, aType){
+    //console.log("I am in get role before if")
+    if(typeof aName !== undefined && aType !== undefined){
+      //console.log("I am in get role after if")
+      for(const obj of this._roles){
+        if(obj._name === aName && obj._type === aType){
+          return obj
+        }
+    }
+  }
+    return null
+  }
+
+  //AC
   addRole(aRole) {
+    
+    let wasAdded = false;
+    if (!this.findRole(aRole) && !(typeof aRole === undefined) 
+    && !(aRole === null)) {
+    this._roles.push(aRole);
+    wasAdded = true;
+    }
+    return wasAdded; 
+
+    /*
     let wasAdded = false;
     if (this._roles.some((o) => o.equals(aRole))) {
       return false;
     }
-    //console.log("I am in addRoleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    //////console.log("I am in addRoleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     const existingContract = aRole.getContract();
     const isNewContract = existingContract != null
     && !this.equals(existingContract);
@@ -525,8 +557,19 @@ class SymboleoContract extends Resource {
       this._roles.push(aRole);
     }
     wasAdded = true;
-    return wasAdded;
+    return wasAdded;*/
   }
+
+//AC
+//Utlity function 
+findRole(aRole){
+  let isRole = false
+  if(typeof aRole !== undefined){
+    isRole = this._roles.some(obj => obj._name === aRole._name && obj._type === aRole._type)
+
+  }
+  return  isRole  
+}
 
   removeRole(aRole) {
     let wasRemoved = false;
@@ -704,6 +747,53 @@ class SymboleoContract extends Resource {
     wasSet = true;
     return wasSet;
   }
+
+  //utlity function 
+  //AC
+  //return all legal position
+  findLegalPosition(aName, aType, aContract){
+    
+    ////console.log("aName")
+    ////console.log(aName)
+    ////console.log("aType")
+    ////console.log(aType)
+
+    if(aType.toLowerCase() === "obligation"){
+      //////console.log("I am here")
+
+    for (const obligationKey of Object.keys(aContract.obligations)) {
+      
+ 
+      //////console.log("obligationKey.name.toLowerCase()")
+      //////console.log(obligationKey)
+      if(obligationKey === aName){
+          return aContract.obligations[obligationKey]
+      }
+    }
+  } else if(aType.toLowerCase() === "power"){
+
+  for (const powerKey of Object.keys(aContract.powers)) {
+      if(powerKey === aName){
+          return aContract.powers[powerKey]
+      }
+    }
+  }
+  return null
+  }
+  
+  //AC
+  //utlity function
+  findObject(aName, aType, aContract){
+
+      if(aContract[aName] !=  undefined && aContract[aName]._type === aType){
+          return aContract[aName]
+      }
+
+     
+
+
+  }
+
 
   delete() {
     while (this._legalPositions.length > 0) {

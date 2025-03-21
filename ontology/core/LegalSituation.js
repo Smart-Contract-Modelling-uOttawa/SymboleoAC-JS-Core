@@ -56,20 +56,21 @@ class LegalSituation extends Situation {
   static minimumNumberOfAntecedentOf() {
     return 0;
   }
-
-  addAntecedentOf(aAntecedentOf) {
+ 
+  //AC-modification in the thesis
+  addAntecedentOf(arg) {
+ 
     let wasAdded = false;
-    if (this.antecedentOf.some((o) => o.equals(aAntecedentOf))) {
+    if (this.antecedentOf.find((obj) => obj === arg)) {
       return false;
     }
-    const existingAntecedent = aAntecedentOf.getAntecedent();
-    const isNewAntecedent = existingAntecedent != null && !this.equals(existingAntecedent);
-    if (isNewAntecedent) {
-      aAntecedentOf.setAntecedent(this);
-    } else {
-      this.antecedentOf.push(aAntecedentOf);
+    
+    if (!(typeof arg === 'undefined') && !(arg === null)){
+      this.antecedentOf.push(arg);
+      wasAdded = true;
+
     }
-    wasAdded = true;
+  
     return wasAdded;
   }
 
@@ -86,6 +87,7 @@ class LegalSituation extends Situation {
   static minimumNumberOfConsequentOf() {
     return 0;
   }
+  //AC-modification - in the thesis 
 //return this._constraints.find(obj => obj.decision === aRule.decision && obj.permission === aRule.permission && obj.accessedResource === aRule.accessedResource && obj.accessedRole === aRule.accessedRole);  
   addConsequentOf(arg) {
     let wasAdded = false;

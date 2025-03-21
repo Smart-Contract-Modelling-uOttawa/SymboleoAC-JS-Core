@@ -8,6 +8,10 @@ class Data extends AbstractEvent {
     this._timestamp = null;
   }
 
+
+  //Sofana-AC
+  // INTERFACE
+
 // association_GetMany
 // getPerformer method
 getPerformer(index) {
@@ -49,6 +53,8 @@ static minimumNumberOfPerformer() {
 addPerformer(aPerformer) {
   let wasAdded = false;
   if (!this._performer.includes(aPerformer) && aPerformer !== null) {
+    console.log("aPerformer-------------------------")
+     console.log(aPerformer)
       this._performer.push(aPerformer);
       wasAdded = true;
   }
@@ -100,6 +106,7 @@ delete() {
   this._performer = [];
   super.delete();
 }
+//Sofana-AC
 
   happen(event) {
     this._triggered = true;
