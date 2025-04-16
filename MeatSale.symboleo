@@ -6,7 +6,6 @@ Domain meatSaleDomain
   TransportCo isA Role thirdParty with name:String;
   Assessor isA Role thirdParty with name: String;
   Regulator isA Role thirdParty with name: String;
-  Storage isA Role thirdParty with name: String;
   Currency isAn Enumeration(CAD, USD, EUR);
   MeatQuality isAn Enumeration(PRIME, AAA, AA, A);
   //by default controller of an asset is its owner 
@@ -17,12 +16,12 @@ Domain meatSaleDomain
   Paid isAn Event with amount: Number, currency: Currency, from: Buyer, to: Seller, payDueDate: Date, performer: Buyer; 
   PaidLate isAn Event with amount: Number, currency: Currency, from: Buyer, to: Seller, performer: Buyer; 
   InspectedQuality isAn Event with Env quantityFound: Number, Env qualityFound:MeatQuality, Env barFound: String,  performer:Assessor; 
-  TempLoCTime isA Data with Env temp:Number, Env locLatitude: String, Env locLongitude: String, Env dataTime:String;
+  TempLoCTime isA DataTransfer with Env temp:Number, Env locLatitude: String, Env locLongitude: String, Env dataTime:String;
   Container isA Resource with Env pin:String, Env loadResource: Meat, Env unLoadRresource: Boolean; 
   PasswordNotification isAn Event with Env pin:String, performer:TransportCo;
   UnLoaded isAn Event with performer:Assessor;
 endDomain 
- 
+   
 Contract MeatSale (buyerP : Buyer, sellerP : Seller, transportCoP : TransportCo, assessorP : Assessor, regulatorP : Regulator, barcodeP : String, qnt : Number, qlt : MeatQuality, amt : Number, curr : Currency, payDueDate: Date, 
 	delAdd : String, effDate : Date, delDueDateDays : Number, interestRate: Number
 )
@@ -34,7 +33,7 @@ Declarations
   assessor: Assessor with name:= assessorP.name;
   regulator: Regulator with name:= regulatorP.name;
   goods: Meat with quantity := qnt, quality := qlt, barcode:=barcodeP, owner:= seller;
-  delivered: Delivered with deliveryAddress := delAdd, delDueDate := Date.add(effDate, delDueDateDays, days), performer:= transportCo, controller:= seller;
+  delivered: Delivered with deliveryAddress := delAdd, delDueDate := Date.add(effDate, delDueDateDays, days), performer:= transportCo, controller:= seller;//item := goods, 
   paidLate: PaidLate with amount := (1 + interestRate / 100) * amt, currency := curr, from := buyer, to := seller, performer:= buyer;
   paid: Paid with amount := amt, currency := curr, from := buyer, to := seller, payDueDate := payDueDate, performer:= buyer;// controller:=transportCo;
   temploctime: TempLoCTime;
@@ -42,12 +41,12 @@ Declarations
   inspectedQuality:InspectedQuality with performer:=assessor; 
   unLoaded:UnLoaded with performer:=assessor;
   container:Container;
-
+ 
 Obligations
-  // controller by default is the debtor (seller) of obligation delivery 
+  // controller by default is the debtor (seller) of obligation delivery //Happens(temploctime) and
   delivery: Obligation(seller, buyer, true, WhappensBefore(delivered, delivered.delDueDate) and Happens(temploctime) and temploctime.temp <= 18 and delivered.deliveryAddress == buyer.warehouse); 
   inspectMeat: Happens(delivered) -> Obligation(assessor, buyer, Happens(passwordNotification), Happens(inspectedQuality) and inspectedQuality.barFound == goods.barcode and inspectedQuality.qualityFound == goods.quality  and inspectedQuality.quantityFound == goods.quantity);
-  unLoad: Happens(unLoaded) -> Obligation(assessor,seller, true,unLoaded.UnLoadRresource :=1);
+  //unLoad: Happens(unLoaded) -> Obligation(assessor,seller, true,unLoaded.UnLoadRresource :=1);
   payment: O(buyer, seller , Happens(unLoaded), WhappensBefore(paid, paid.payDueDate));  
   latePayment: Happens(Violated(obligations.payment)) -> O(buyer, seller, true, Happens(paidLate));
      
