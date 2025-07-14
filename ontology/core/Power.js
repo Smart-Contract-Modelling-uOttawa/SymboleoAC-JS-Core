@@ -1,6 +1,6 @@
 const { LegalPosition } = require('./LegalPosition.js');
 const { Event } = require('./Event.js');
-const { Events } = require('../Events.js');
+const { Events } = require('../../Events.js');
 const {
   InternalEvent, InternalEventSource,
   InternalEventType,

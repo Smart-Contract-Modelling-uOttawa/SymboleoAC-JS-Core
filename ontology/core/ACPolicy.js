@@ -1,36 +1,18 @@
-const {LegalPosition, Asset, Event, Role} = require('symboleo-js-core'); //LegalPosition
+const {LegalPosition, Asset, Event, Role} = require('SymboleoAC-JS-Core'); //LegalPosition
 const { Resource } = require('./Resource.js');
 //const { Rule } = require('./Rule.js');
 const { Operation } = require('./Operation.js');
 //const { LegalPosition } = require('./LegalPosition.js');
 
-/*
-const { PerishableGood } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/assets/PerishableGood.js")
-const { Meat } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/assets/Meat.js")
-const { Delivered } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/events/Delivered.js")
-const { Paid } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/events/Paid.js")
-const { PaidLate } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/events/PaidLate.js")
-const { InspectedQuality } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/events/InspectedQuality.js")
-const { PasswordNotification } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/events/PasswordNotification.js")
-const { UnLoaded } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/events/UnLoaded.js")
-const { Seller } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/roles/Seller.js")
-const { Buyer } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/roles/Buyer.js")
-const { TransportCo } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/roles/TransportCo.js")
-const { Assessor } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/roles/Assessor.js")
-const { Currency } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/types/Currency.js")
-const { MeatQuality } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/MeatSale/domain/types/MeatQuality.js")
-*/
-const { SymboleoContract } = require("symboleo-js-core")
-const { Obligation } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/node_modules/symboleo-js-core/core/Obligation.js")
-const { Power } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/node_modules/symboleo-js-core/core/Power.js")
-const { Utils } = require("symboleo-js-core")
-const { Str } = require("symboleo-js-core")
-//const { ACPolicy } = require("symboleo-js-core")
+const { SymboleoContract } = require('SymboleoAC-JS-Core')
+const { Obligation } = require('SymboleoAC-JS-Core')
+const { Power } = require('SymboleoAC-JS-Core')
+const { Utils } = require('SymboleoAC-JS-Core')
+const { Str } = require('SymboleoAC-JS-Core')
 //const { Notified } = require("../events/Notified.js")
-const { Attribute } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/node_modules/symboleo-js-core/core/Attribute.js")
-const { Rule } = require("/Users/sfuhaid/Symboleo2SC-demo-mainFunctionACcore/node_modules/symboleo-js-core/core/Rule.js")
-//const { Rule } = require("symboleo-js-core")
-const { LegalSituation } = require("symboleo-js-core")
+const { Attribute } = require('SymboleoAC-JS-Core')
+const { Rule } = require('SymboleoAC-JS-Core')
+const { LegalSituation } = require('SymboleoAC-JS-Core')
 //const { contracts } = require("../../index.js")
 
 //we did not decied controller 

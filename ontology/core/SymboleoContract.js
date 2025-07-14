@@ -4,7 +4,7 @@ const { Party } = require('./Party.js');
 const { Resource } = require('./Resource.js');
 
 
-const { Events } = require('../Events.js');
+const { Events } = require('../../Events.js');
 const {
   InternalEvent,
   InternalEventSource,
