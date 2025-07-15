@@ -1,5 +1,5 @@
-const { InternalEventSource } = require('./core/InternalEvents.js');
-const { InternalEventType } = require('./core/InternalEvents.js');
+const { InternalEventSource } = require('./ontology/core/InternalEvents.js');
+const { InternalEventType } = require('./ontology/core/InternalEvents.js');
 
 const EventsObject = {
 
