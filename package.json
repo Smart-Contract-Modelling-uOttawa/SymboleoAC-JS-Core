@@ -1,6 +1,6 @@
 {
-  "name": "symboleoac-js-core",        
-  "version": "1.0.0",                  
+  "name": "symboleoac-js-core",
+  "version": "1.0.1",
   "description": "Smart contract core with access control for Symboleo",
   "main": "index.js",
   "keywords": [
@@ -16,11 +16,3 @@
     "url": "https://github.com/Smart-Contract-Modelling-uOttawa/SymboleoAC-JS-Core.git"
   }
 }
-
-
-
-
-
-
-
-
