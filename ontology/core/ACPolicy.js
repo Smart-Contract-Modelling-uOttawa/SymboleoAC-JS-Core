@@ -1,18 +1,18 @@
-const {LegalPosition, Asset, Event, Role} = require('SymboleoAC-JS-Core'); //LegalPosition
+const {LegalPosition, Asset, Event, Role} = require('symboleoac-js-core'); //LegalPosition
 const { Resource } = require('./Resource.js');
 //const { Rule } = require('./Rule.js');
 const { Operation } = require('./Operation.js');
 //const { LegalPosition } = require('./LegalPosition.js');
 
-const { SymboleoContract } = require('SymboleoAC-JS-Core')
-const { Obligation } = require('SymboleoAC-JS-Core')
-const { Power } = require('SymboleoAC-JS-Core')
-const { Utils } = require('SymboleoAC-JS-Core')
-const { Str } = require('SymboleoAC-JS-Core')
+const { SymboleoContract } = require('symboleoac-js-core')
+const { Obligation } = require('symboleoac-js-core')
+const { Power } = require('symboleoac-js-core')
+const { Utils } = require('symboleoac-js-core')
+const { Str } = require('symboleoac-js-core')
 //const { Notified } = require("../events/Notified.js")
-const { Attribute } = require('SymboleoAC-JS-Core')
-const { Rule } = require('SymboleoAC-JS-Core')
-const { LegalSituation } = require('SymboleoAC-JS-Core')
+const { Attribute } = require('symboleoac-js-core')
+const { Rule } = require('symboleoac-js-core')
+const { LegalSituation } = require('symboleoac-js-core')
 //const { contracts } = require("../../index.js")
 
 //we did not decied controller 
