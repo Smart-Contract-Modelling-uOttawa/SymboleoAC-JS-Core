@@ -1,19 +1,35 @@
-const {LegalPosition, Asset, Event, Role} = require('symboleoac-js-core'); //LegalPosition
+//**const {LegalPosition, Asset, Event, Role} = require('symboleoac-js-core'); //LegalPosition
 const { Resource } = require('./Resource.js');
 //const { Rule } = require('./Rule.js');
 const { Operation } = require('./Operation.js');
 //const { LegalPosition } = require('./LegalPosition.js');
 
-const { SymboleoContract } = require('symboleoac-js-core')
-const { Obligation } = require('symboleoac-js-core')
-const { Power } = require('symboleoac-js-core')
-const { Utils } = require('symboleoac-js-core')
-const { Str } = require('symboleoac-js-core')
+//const { SymboleoContract } = require('symboleoac-js-core')
+//const { Obligation } = require('symboleoac-js-core')
+//const { Power } = require('symboleoac-js-core')
+//const { Utils } = require('symboleoac-js-core')
+//const { Str } = require('symboleoac-js-core')
 //const { Notified } = require("../events/Notified.js")
-const { Attribute } = require('symboleoac-js-core')
-const { Rule } = require('symboleoac-js-core')
-const { LegalSituation } = require('symboleoac-js-core')
+//const { Attribute } = require('symboleoac-js-core')
+//const { Rule } = require('symboleoac-js-core')
+//const { LegalSituation } = require('symboleoac-js-core')
 //const { contracts } = require("../../index.js")
+//
+const { LegalPosition } = require('./LegalPosition.js');
+const { Asset } = require('./Asset.js');
+const { Event } = require('./Event.js');
+const { Role } = require('./Role.js');
+const { SymboleoContract } = require('./SymboleoContract.js');
+const { Obligation } = require('./Obligation.js');
+//const { Obligation } = require("symboleoac-js-core")
+const { Power } = require('./Power.js');
+const { Attribute } = require('./Attribute.js');
+const { Rule } = require('./Rule.js');
+const { LegalSituation } = require('./LegalSituation.js');
+
+
+console.log('ACPolicy loaded');
+process.stdout.write('');
 
 //we did not decied controller 
 class ACPolicy extends Resource{
@@ -245,21 +261,35 @@ static minimumNumberOfRules() {
 addRulee(aDecision, aPermission, aAccessedResource, aAccessedRole, aByRole) {//aRuleId,
     ////////console.log("inside addRule with multiple parameters-------before return")
     ////////console.log(aPermission)
-    if(aAccessedResource instanceof Obligation){
-        console.log("XXXXXXX")
-     }
-    console.log("aAccessedResource")
-    console.log(aAccessedResource)
+    //if(aAccessedResource instanceof Obligation){
+        //console.log("XXXXXXX")
+     //}
+    console.log("before new Rule")
+    process.stdout.write('');
+    //console.log(aAccessedResource)
     ////////console.log(aAccessedRole)   
   
     let aRule = new Rule(aDecision, aPermission, aAccessedResource, aAccessedRole, aByRole, this);
+
+    console.log("after new Rule")
+    process.stdout.write('');
     ////////console.log(aRule)
     if(aRule != null && ! (typeof aRule === 'undefined')){
+        console.log("before findController")
+        process.stdout.write('');
        if(this.findController(aByRole)){
+        console.log("before addPolicy")
+        process.stdout.write('');
         this.addPolicy(aRule)
-    
+        console.log("after addPolicy")
+        process.stdout.write('');
+        
        }else{
+        console.log("before else addRule")
+        process.stdout.write('');
         this.addRule(aRule) //aRule.setACPolicy(this);
+        console.log("after else addRule")
+        process.stdout.write('');
        }
     }
     //return new Rule(aPermission, aAccessedResource, aAccessedRole, this); //aRuleId

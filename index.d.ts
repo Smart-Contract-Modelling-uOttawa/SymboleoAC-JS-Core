@@ -1,4 +1,4 @@
-declare module 'symboleo-js-core' {
+declare module 'symboleoac-js-core' {
     export class AbstractEvent {}
     export class ACPolicy {}
     export class SymboleoContract {}
