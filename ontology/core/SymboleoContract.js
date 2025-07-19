@@ -789,6 +789,17 @@ findRole(aRole){
   }
   return null
   }
+
+  //AC
+  //check attributes of key/certificate for each role  
+  authenticate(inRole, inName, inOrg, inDept,aContract ) {
+  if ( inOrg === aContract['expectedOrg'] &&
+    inDept === aContract['expectedDept']){
+      return this.findObject(inName, inRole, aContract)   
+    }else{
+      return null
+    }
+}
   
   //AC
   //utlity function
@@ -796,6 +807,8 @@ findRole(aRole){
 
       if(aContract[aName] !=  undefined && aContract[aName]._type === aType){
           return aContract[aName]
+      }else{
+        return null
       }
 
   }
