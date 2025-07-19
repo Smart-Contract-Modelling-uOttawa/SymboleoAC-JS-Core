@@ -1,6 +1,6 @@
 {
   "name": "symboleoac-js-core",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Smart contract core with access control for Symboleo",
   "exports": "./index.js",
   "keywords": [
