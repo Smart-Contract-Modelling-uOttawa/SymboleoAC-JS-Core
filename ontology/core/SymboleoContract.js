@@ -793,13 +793,17 @@ findRole(aRole){
   //AC
   //check attributes of key/certificate for each role  
   authenticate(inRole, inName, inOrg, inDept,aContract ) {
-  if ( inOrg === aContract['expectedOrg'] &&
-    inDept === aContract['expectedDept']){
-      return this.findObject(inName, inRole, aContract)   
-    }else{
-      return null
-    }
-}
+      const objRole = this.findObject(inName, inRole, aContract)
+      if(objRole != null){
+        if (inOrg === objRole.org && inDept === objRole.dept){   
+          return objRole
+        }else{
+          return null
+         }
+        }else{
+          return null
+        }
+      }
   
   //AC
   //utlity function
