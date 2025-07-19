@@ -797,7 +797,7 @@ findRole(aRole){
       console.log("objRole from Core")
       console.log(objRole)
       if(objRole != null){
-        if (inOrg === objRole.org && inDept === objRole.dept){   
+        if (inOrg === objRole.org._value && inDept === objRole.dept._value){   
           return objRole
         }else{
           console.log("first null")
