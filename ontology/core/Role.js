@@ -13,7 +13,6 @@ class Role extends Resource  {
     this._debt = debt;
     this._credit = credit;
     this._party = party;
-    //this._resources = resources;
 
   }
 
