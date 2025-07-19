@@ -794,13 +794,18 @@ findRole(aRole){
   //check attributes of key/certificate for each role  
   authenticate(inRole, inName, inOrg, inDept,aContract ) {
       const objRole = this.findObject(inName, inRole, aContract)
+      console.log("objRole from Core")
+      console.log(objRole)
       if(objRole != null){
         if (inOrg === objRole.org && inDept === objRole.dept){   
           return objRole
         }else{
+          console.log("first null")
+          console.log(objRole)
           return null
          }
         }else{
+          console.log("second null")
           return null
         }
       }
