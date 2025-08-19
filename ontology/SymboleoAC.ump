@@ -67,8 +67,8 @@ class LegalPosition {
   
   //For Access Control
   isA Resource;
-  1..* legalPositionSE   <@>- 0..* Event LegalPositionStateEven;
-  1 legalpositionST   <@>- 1 StateTransition stateTransition; 
+  1..* legalPositionSE   -- 0..* Event LegalPositionStateEven;
+  1 legalpositionST   -- 1 StateTransition stateTransition; 
 }
 
 class Situation {
@@ -100,8 +100,8 @@ class LegalSituation {
   isA Situation;
   
   //For Access Control
-   0..1 legalSituationD   <@>- 0..* Data data;
-  1 legalSituationA   <@>- 0..* Attribute attributes;
+   0..1 legalSituationD   -- 0..* DataTransfer data;
+  1 legalSituationA   -- 0..* Attribute attributes;
   
 }
 
@@ -215,7 +215,7 @@ class Attribute{
 }
 
 //For Access Control
-class Data{
+class DataTransfer{
    isA AbstractEvent; 
 }
 
