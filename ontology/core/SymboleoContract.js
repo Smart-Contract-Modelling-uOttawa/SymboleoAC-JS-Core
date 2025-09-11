@@ -791,6 +791,23 @@ findRole(aRole){
   }
 
   //AC
+ //utlity function 
+ permissionValid(aAccessedResource, aAccessedRoles, aByRole) {
+  const validRoles = [];
+
+  for (const role of aAccessedRoles) {
+    const rule = new Rule('grant', 'read', aAccessedResource, role, aByRole);
+
+    if (hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
+        isValid(rule)) {
+      validRoles.push(role.name ? role.name : role); // support object or string
+    }
+  }
+
+  return validRoles; // flat array with only valid roles
+}
+
+  //AC
   //check attributes of key/certificate for each role  
   authenticate(inRole, inName, inOrg, inDept,aContract ) {
       const objRole = this.findObject(inName, inRole, aContract)
