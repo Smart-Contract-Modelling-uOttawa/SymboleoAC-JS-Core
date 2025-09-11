@@ -96,6 +96,23 @@ findRule(aRule){
     return this._rules.find(obj => obj.decision === aRule.decision && obj.permission === aRule.permission && obj.accessedResource._name === aRule.accessedResource._name && obj.accessedResource._type === aRule.accessedResource._type && obj.accessedRole._name === aRule.accessedRole._name && obj.accessedRole._type === aRule.accessedRole._type);  
 }
 
+//AC
+ //utlity function 
+ permissionValid(aAccessedResource, aAccessedRoles, aByRole) {
+  const validRoles = [];
+
+  for (const role of aAccessedRoles) {
+    const rule = new Rule('grant', 'read', aAccessedResource, role, aByRole);
+
+    if (hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
+        isValid(rule)) {
+      validRoles.push(role.name ? role.name : role); // support object or string
+    }
+  }
+
+  return validRoles; // flat array with only valid roles
+}
+
 //Utility function
 //this will create a rule, and search if it exesits in the list of rules
 //it should check if he has a rule, if not, it will check if he the controller, if not

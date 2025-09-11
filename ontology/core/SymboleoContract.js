@@ -2,7 +2,7 @@ const { Event } = require('./Event.js');
 const { Party } = require('./Party.js');
 //sofana-AC
 const { Resource } = require('./Resource.js');
-const { Rule } = require('./Rule.js');
+
 
 
 const { Events } = require('../../Events.js');
@@ -791,22 +791,7 @@ findRole(aRole){
   return null
   }
 
-  //AC
- //utlity function 
- permissionValid(aAccessedResource, aAccessedRoles, aByRole, contract) {
-  const validRoles = [];
-
-  for (const role of aAccessedRoles) {
-    const rule = new Rule('grant', 'read', aAccessedResource, role, aByRole);
-
-    if (contract.accessPolicy.hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
-        contract.accessPolicy.isValid(rule)) {
-      validRoles.push(role.name ? role.name : role); // support object or string
-    }
-  }
-
-  return validRoles; // flat array with only valid roles
-}
+  
 
   //AC
   //check attributes of key/certificate for each role  
