@@ -2,6 +2,8 @@ const { Event } = require('./Event.js');
 const { Party } = require('./Party.js');
 //sofana-AC
 const { Resource } = require('./Resource.js');
+const { ACPolicy } = require('./ACPolicy.js');
+const { Rule } = require('./Rule.js');
 
 
 const { Events } = require('../../Events.js');
