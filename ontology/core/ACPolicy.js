@@ -104,8 +104,8 @@ findRule(aRule){
   for (const role of aAccessedRoles) {
     const rule = new Rule('grant', 'read', aAccessedResource, role, aByRole);
 
-    if (hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
-        isValid(rule)) {
+    if (this.hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
+        this.isValid(rule)) {
       validRoles.push(role.name ? role.name : role); // support object or string
     }
   }
