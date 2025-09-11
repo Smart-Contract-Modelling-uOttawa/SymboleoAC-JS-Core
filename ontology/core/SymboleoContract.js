@@ -794,14 +794,14 @@ findRole(aRole){
 
   //AC
  //utlity function 
- permissionValid(aAccessedResource, aAccessedRoles, aByRole) {
+ permissionValid(aAccessedResource, aAccessedRoles, aByRole, contract) {
   const validRoles = [];
 
   for (const role of aAccessedRoles) {
     const rule = new Rule('grant', 'read', aAccessedResource, role, aByRole);
 
-    if (hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
-        isValid(rule)) {
+    if (contract.accessPolicy.hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
+        contract.accessPolicy.isValid(rule)) {
       validRoles.push(role.name ? role.name : role); // support object or string
     }
   }
