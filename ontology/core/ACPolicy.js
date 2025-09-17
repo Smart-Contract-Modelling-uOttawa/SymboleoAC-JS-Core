@@ -106,7 +106,7 @@ findRule(aRule){
 
     if (this.hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
         this.isValid(rule)) {
-      validRoles.push(role.name ? role.name : role); // support object or string
+      validRoles.push(role.name._value); 
     }
   }
 
