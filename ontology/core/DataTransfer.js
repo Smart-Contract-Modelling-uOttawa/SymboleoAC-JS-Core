@@ -1,18 +1,16 @@
 const { AbstractEvent } = require('./AbstractEvent.js');
 
 //special case for Data that performer is not the controller
-class Data extends AbstractEvent {
+class DataTransfer extends AbstractEvent {
   constructor(allController) {//add perfomer later as API performer
     super(allController);
     this._triggered = false;
     this._timestamp = null;
+    this._performer = [];
+    this.addPerformer(allController)
   }
 
-
-  //Sofana-AC
-  // INTERFACE
-
-// association_GetMany
+  // association_GetMany
 // getPerformer method
 getPerformer(index) {
   let aPerformer = this._performer[index];
@@ -50,15 +48,25 @@ static minimumNumberOfPerformer() {
 
 // association_AddUnidirectionalMany
 // addPerformer method
+//AC
 addPerformer(aPerformer) {
   let wasAdded = false;
+  if (!this.findPerformer(aPerformer) && !(typeof aPerformer === 'undefined') 
+  && !(aPerformer === null)) {
+  this._performer.push(aPerformer);
+  wasAdded = true;
+  }
+  return wasAdded;  
+  /*
+  let wasAdded = false;
   if (!this._performer.includes(aPerformer) && aPerformer !== null) {
-    console.log("aPerformer-------------------------")
-     console.log(aPerformer)
+    ////console.log("aPerformer-------------------------")
+     ////console.log(aPerformer)
       this._performer.push(aPerformer);
       wasAdded = true;
   }
   return wasAdded;
+  */
 }
 
 // removePerformer method
@@ -71,6 +79,26 @@ removePerformer(aPerformer) {
   }
   return wasRemoved;
 }
+
+ //AC
+  //utlity function
+  findPerformer(aPerformer){
+    let isPerformer = false
+    //console.log("I am inside findController in Event class")
+    //this._controller.find(obj => obj === aController)
+    //console.log(aPerformer)
+    isPerformer = this._performer.some(obj => obj._name === aPerformer._name && obj._type === aPerformer._type)
+    //console.log("isPerformer")
+    //console.log(isPerformer); // true
+    //this._performer.forEach(obj => {if(obj === aPerformer){
+      //////console.log("I am inside if in findController")
+      //isPerformer = true;
+      return isPerformer
+    //}  //////console.log("obj")
+     //////console.log(obj)
+  //})
+    //return  isPerformer  
+  }
 
 // association_AddIndexControlFunctions
 // addPerformerAt method
@@ -124,6 +152,12 @@ delete() {
   hasHappened() {
     return this._triggered;
   }
+
+  //AC
+  getHappenedTime(){
+    return this._timestamp;
+  }
+
 }
 
-module.exports.Data = Data;
+module.exports.DataTransfer = DataTransfer;
