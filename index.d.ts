@@ -7,7 +7,7 @@ declare module 'symboleoac-js-core' {
     export class Power {}
     export class Asset {}
     export class Attribute {}
-    export class Data {}
+    export class DataTransfer {}
     export class Event {}
     export class InternalEvents {}
     export class LegalPosition {}
