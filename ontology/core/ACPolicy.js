@@ -18,6 +18,7 @@ const { Operation } = require('./Operation.js');
 const { LegalPosition } = require('./LegalPosition.js');
 const { Asset } = require('./Asset.js');
 const { Event } = require('./Event.js');
+const { DataTransfer } = require('./DataTransfer.js');
 const { Role } = require('./Role.js');
 const { SymboleoContract } = require('./SymboleoContract.js');
 const { Obligation } = require('./Obligation.js');
@@ -135,7 +136,7 @@ if(this.findRule(aRule)){
     if(aRule.accessedResource.findController(aRule.accessedRole)){//&& aRule.permission === 'Read'
        ////////console.log("aRule.accessedResource._me in if Controller of contractttttt")
        //if resource not type of Event or Asset or Role, then it is a contract
-       if(!(aRule.accessedResource instanceof Event) && !(aRule.accessedResource instanceof Asset) && !(aRule.accessedResource instanceof Role) ){//aRule.permission === 'Read' &&
+       if(!(aRule.accessedResource instanceof Event) && !(aRule.accessedResource instanceof DataTransfer) && !(aRule.accessedResource instanceof Asset) && !(aRule.accessedResource instanceof Role) ){//aRule.permission === 'Read' &&
         ////////console.log("Contract")
         return true 
        }else
@@ -151,7 +152,7 @@ if(this.findRule(aRule)){
     }// end if for Asset
     ////////console.log("aRule.accessedResource._ performer before instance of")
     ////////console.log( aRule.accessedResource instanceof Event )
-    if((aRule.accessedResource instanceof LegalPosition) || (aRule.accessedResource instanceof Event) || (aRule.accessedResource instanceof Operation)){ //|| (aRule.accessedResource instanceof Operation) 
+    if((aRule.accessedResource instanceof LegalPosition) || (aRule.accessedResource instanceof Event) || (aRule.accessedResource instanceof DataTransfer) || (aRule.accessedResource instanceof Operation)){ //|| (aRule.accessedResource instanceof Operation) 
         ////////console.log("aRule.accessedResource._ performer after instance of")
         // here we could findperformer and find controler cuz it is a lsit
         ////////console.log(aRule.accessedResource._performer)
