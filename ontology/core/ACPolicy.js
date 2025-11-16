@@ -99,14 +99,16 @@ findRule(aRule){
 
 //AC
  //utlity function 
- permissionValid(aAccessedResource, aAccessedRoles, aByRole) {
+ //return list of roles
+ permissionValid(aAccessedResource, aAccessedRoles, aByRole, aContract) {
   const validRoles = [];
 
   for (const role of aAccessedRoles) {
     const rule = new Rule('grant', 'read', aAccessedResource, role, aByRole);
 
-    if (this.hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) &&
-        this.isValid(rule)) {
+    if (((this.hasPermesstion('grant', 'read', aAccessedResource, role, aByRole) ||
+    this.hasPermesstionOnLegalPosition('grant','read', aAccessedResource, role, aByRole, aContract)) &&
+        this.isValid(rule))) {
       validRoles.push(role.name._value); 
     }
   }
