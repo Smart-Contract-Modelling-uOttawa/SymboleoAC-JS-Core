@@ -218,7 +218,7 @@ hasPermesstionOnLegalPosition(aDecision,aAction, aAccessedResource, aAccessedRol
     for (const powerKey of Object.keys(aContract.powers)) {
         //output += `  ${obligationKey}: ${contract.obligations[powerKey].state}-${contract.obligations[obligationKey].activeState}\r\n`
         //aRule.accessedResource._performer.includes(aRule.accessedRole)
-        if((this.findObject(aContract.powers[powerKey].antecedent,aAccessedResource))  &&  aContract.powers[powerKey]._performer.find(obj => (obj._name === aAccessedRole._name && obj._type === aAccessedRole._type))){
+        if((this.findObject(aContract.powers[powerKey].consequent, aAccessedResource) || this.findObject(aContract.powers[powerKey].antecedent, aAccessedResource)) &&  aContract.powers[powerKey].findPerformer(aAccessedRole)){
             let aRule = new Rule(aDecision, aAction, aContract.powers[powerKey], aAccessedRole,aByRole, this)
             return this.isValid(aRule)
         }
