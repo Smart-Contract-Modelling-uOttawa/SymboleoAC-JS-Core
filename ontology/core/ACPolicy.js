@@ -148,7 +148,7 @@ if(this.findRule(aRule)){
        }
     }// end if for controller
     if(aRule.accessedResource instanceof Asset){
-        if(aRule.accessedResource._owners._value === aRule.accessedRole){
+        if(aRule.accessedResource.owner === aRule.accessedRole){
         return true
         }
     }// end if for Asset
