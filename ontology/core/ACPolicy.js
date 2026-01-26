@@ -1,20 +1,7 @@
-//**const {LegalPosition, Asset, Event, Role} = require('symboleoac-js-core'); //LegalPosition
 const { Resource } = require('./Resource.js');
-//const { Rule } = require('./Rule.js');
 const { Operation } = require('./Operation.js');
-//const { LegalPosition } = require('./LegalPosition.js');
 
-//const { SymboleoContract } = require('symboleoac-js-core')
-//const { Obligation } = require('symboleoac-js-core')
-//const { Power } = require('symboleoac-js-core')
-//const { Utils } = require('symboleoac-js-core')
-//const { Str } = require('symboleoac-js-core')
-//const { Notified } = require("../events/Notified.js")
-//const { Attribute } = require('symboleoac-js-core')
-//const { Rule } = require('symboleoac-js-core')
-//const { LegalSituation } = require('symboleoac-js-core')
-//const { contracts } = require("../../index.js")
-//
+
 const { LegalPosition } = require('./LegalPosition.js');
 const { Asset } = require('./Asset.js');
 const { Event } = require('./Event.js');
@@ -22,7 +9,6 @@ const { DataTransfer } = require('./DataTransfer.js');
 const { Role } = require('./Role.js');
 const { SymboleoContract } = require('./SymboleoContract.js');
 const { Obligation } = require('./Obligation.js');
-//const { Obligation } = require("symboleoac-js-core")
 const { Power } = require('./Power.js');
 const { Attribute } = require('./Attribute.js');
 const { Rule } = require('./Rule.js');
@@ -32,31 +18,17 @@ const { LegalSituation } = require('./LegalSituation.js');
 console.log('ACPolicy loaded');
 process.stdout.write('');
 
-//we did not decied controller 
+ 
 class ACPolicy extends Resource{
     constructor(allController) {
         super(allController);
-        //this.policyId = aPolicyId;
         this._rules = [];
-        // has rules that comes from the regulator 
         this._constraints = [];
     }
 //------------------------
 // INTERFACE
 //------------------------
-/* no longer needed not in the generated code
-setPolicyId(aPolicyId) {
-    let wasSet = false;
-    this.policyId = aPolicyId;
-    wasSet = true;
-    return wasSet;
-}
 
-// getPolicyId method
-getPolicyId() {
-    return this.policyId;
-}
-*/
 
 /* Code from template association_GetMany */
 getRule(index) {
@@ -87,8 +59,7 @@ hasRules() {
 indexOfRule(aRule) {
     let index = this.rules.indexOf(aRule); // from the converter
     return index;
-    //const index = this._rules.includes(aRule);//=> o.equals(aRule))
-    //return index;
+ 
 }
 
 //Utility function 
@@ -118,28 +89,22 @@ findRule(aRule){
 
 //Utility function
 //this will create a rule, and search if it exesits in the list of rules
-//it should check if he has a rule, if not, it will check if he the controller, if not
+//it should check if he has a rule, if not, it will check if he is the controller, if not
 //it will add the rule 
-//TBD-controller of legalposition can read attribtes of events that part of legal position (pre-authorized)
-//TBD-controller of operation (pre-authorized)
-//TBD-controller of legalposition can read Data that part of legal position (pre-authorized)
+//controller of legalposition can read attribtes of events that part of legal position (pre-authorized)
+//controller of operation (pre-authorized)
+//controller of legalposition can read Data that part of legal position (pre-authorized)
 hasPermesstion(aDecision,aAction, aAccessedResource, aAccessedRole, aByRole){
 let aRule = new Rule(aDecision, aAction, aAccessedResource, aAccessedRole,aByRole, this)
 
-//console.log("accessedResource")
-//console.log(aRule.accessedResource)
 if(this.findRule(aRule)){
-    //has permesstion
     return true
   }else{
-    ////////console.log("aRule.accessedResource._controller from test")
-    ////////console.log(aRule.accessedResource._controller)
-    ////////console.log(aRule.accessedRole)
+    
     if(aRule.accessedResource.findController(aRule.accessedRole)){//&& aRule.permission === 'Read'
-       ////////console.log("aRule.accessedResource._me in if Controller of contractttttt")
-       //if resource not type of Event or Asset or Role, then it is a contract
+      
        if(!(aRule.accessedResource instanceof Event) && !(aRule.accessedResource instanceof DataTransfer) && !(aRule.accessedResource instanceof Asset) && !(aRule.accessedResource instanceof Role) ){//aRule.permission === 'Read' &&
-        ////////console.log("Contract")
+      
         return true 
        }else
        {// controller has only read permssition and can give read permission
@@ -152,15 +117,11 @@ if(this.findRule(aRule)){
         return true
         }
     }// end if for Asset
-    ////////console.log("aRule.accessedResource._ performer before instance of")
-    ////////console.log( aRule.accessedResource instanceof Event )
+
     if((aRule.accessedResource instanceof LegalPosition) || (aRule.accessedResource instanceof Event) || (aRule.accessedResource instanceof DataTransfer) || (aRule.accessedResource instanceof Operation)){ //|| (aRule.accessedResource instanceof Operation) 
-        ////////console.log("aRule.accessedResource._ performer after instance of")
         // here we could findperformer and find controler cuz it is a lsit
-        ////////console.log(aRule.accessedResource._performer)
-       if(aRule.accessedResource.findPerformer(aRule.accessedRole)) //old: aRule.accessedResource._performer.includes(aRule.accessedRole)
+       if(aRule.accessedResource.findPerformer(aRule.accessedRole)) 
        {
-        ////////console.log("aRule.accessedResource._performer after if")
         return true
     }
     if(aRule.accessedResource instanceof Obligation){
@@ -197,27 +158,19 @@ if(this.findRule(aRule)){
 
 //AC
 hasPermesstionOnLegalPosition(aDecision,aAction, aAccessedResource, aAccessedRole, aByRole, aContract){
-    ////////console.log("aAccessedResource")
-    ////////console.log(aAccessedResource)
+  
     
-    //if(aAccessedResource._type === 'obligation'){
     for (const obligationKey of Object.keys(aContract.obligations)) {
     
-        //.consequentOf //.antecedentOf
-        ////console.log("aContract.obligations[obligationKey]._performer")
-        ////console.log(aContract.obligations[obligationKey].findPerformer(aAccessedRole))
+      
         if((this.findObject(aContract.obligations[obligationKey].consequent, aAccessedResource) || this.findObject(aContract.obligations[obligationKey].antecedent, aAccessedResource)) &&  aContract.obligations[obligationKey].findPerformer(aAccessedRole)){
-            ////console.log("Has Permessiiton on the part")
             let aRule = new Rule(aDecision, aAction, aContract.obligations[obligationKey], aAccessedRole,aByRole, this)
             return this.isValid(aRule) //check if threre is a constraint that prevent him 
         }
       }
     
 
-    //if(aAccessedResource._type === 'power'){
     for (const powerKey of Object.keys(aContract.powers)) {
-        //output += `  ${obligationKey}: ${contract.obligations[powerKey].state}-${contract.obligations[obligationKey].activeState}\r\n`
-        //aRule.accessedResource._performer.includes(aRule.accessedRole)
         if((this.findObject(aContract.powers[powerKey].consequent, aAccessedResource) || this.findObject(aContract.powers[powerKey].antecedent, aAccessedResource)) &&  aContract.powers[powerKey].findPerformer(aAccessedRole)){
             let aRule = new Rule(aDecision, aAction, aContract.powers[powerKey], aAccessedRole,aByRole, this)
             return this.isValid(aRule)
@@ -229,8 +182,7 @@ hasPermesstionOnLegalPosition(aDecision,aAction, aAccessedResource, aAccessedRol
 
 //AC
 findObject (listOfParts, aAccessedResource){
-    ////////console.log("listOfParts")
-    ////////console.log(listOfParts)
+   
     if(typeof listOfParts != 'undefined' &&  listOfParts.length > 0 ){
         switch (aAccessedResource._type.toLowerCase()){
             case 'condition':  
@@ -240,22 +192,12 @@ findObject (listOfParts, aAccessedResource){
                     }}
                 break
             case 'statecondition': //here to ackeck state if its of obligation/power if its part of another obligation
-                //////console.log("inside state condition")
                 for(const obj  of  listOfParts){ //.consequentOf
-                    //state: "violated", resource:"delivery", resourceType:"obligation", _type: 'stateCondition'
                 if (obj._type === 'stateCondition' && obj.state === aAccessedResource.state && obj.resource ===  aAccessedResource.resource &&  obj.resourceType === aAccessedResource.resourceType) {
-                    //////console.log("kohset resturn true")
                     return true;
                 }}
                 break
-            case 'eventcondition'://event //.consequentOf //default for Event
-            ////console.log("inside eventconiditon ")
-                    //{_type: 'eventCondition', partResource:"delivered", partResourceType:"Delivered", resource:"delivery", resourceType:"obligation"}
-                    //_type: 'eventCondition', resource:"delivered", resourceType:"Delivered"
-                    ////console.log("aAccessedResource")
-                    ////console.log(aAccessedResource)
-                    ////console.log("listOfPart")
-                    ////console.log(listOfParts)
+            case 'eventcondition':
                 for(const obj  of  listOfParts){
                 if(obj._type === 'eventCondition' && obj.resource === aAccessedResource.partResource && obj.resourceType ===  aAccessedResource.partResourceType){
                     ////console.log("inside if eventconiditon ")
@@ -279,45 +221,26 @@ static minimumNumberOfRules() {
 //***use exception instead of boolean to infomr user that they do not have right to access 
 //this.aCPolicy.addRulee("grant", "read", this.obligations.delivery, this.assessor, this.seller)
 addRulee(aDecision, aPermission, aAccessedResource, aAccessedRole, aByRole) {//aRuleId,
-    ////////console.log("inside addRule with multiple parameters-------before return")
-    ////////console.log(aPermission)
-    //if(aAccessedResource instanceof Obligation){
-        //console.log("XXXXXXX")
-     //}
-    console.log("before new Rule")
-    process.stdout.write('');
-    //console.log(aAccessedResource)
-    ////////console.log(aAccessedRole)   
-  
+   
     let aRule = new Rule(aDecision, aPermission, aAccessedResource, aAccessedRole, aByRole, this);
 
-    console.log("after new Rule")
-    process.stdout.write('');
-    ////////console.log(aRule)
     if(aRule != null && ! (typeof aRule === 'undefined')){
-        console.log("before findController")
-        process.stdout.write('');
+       
        if(this.findController(aByRole)){
-        console.log("before addPolicy")
-        process.stdout.write('');
+       
         this.addPolicy(aRule)
-        console.log("after addPolicy")
-        process.stdout.write('');
+      
         
        }else{
-        console.log("before else addRule")
-        process.stdout.write('');
+     
         this.addRule(aRule) //aRule.setACPolicy(this);
-        console.log("after else addRule")
-        process.stdout.write('');
+     
        }
     }
-    //return new Rule(aPermission, aAccessedResource, aAccessedRole, this); //aRuleId
     return aRule
 }
 
 addRule(aRule) {
-    ////////console.log("inside addRule with single parameter--------------------------")
     let wasAdded = false;
 
     //to check if the rule exist, or pre-authrized permesstion. 
@@ -334,28 +257,12 @@ addRule(aRule) {
 
     //if(this.repair(aRule,this._rules)){
        
-   // }
-    
-    //let existingACPolicy = aRule.getACPolicy();
-    //let isNewACPolicy = existingACPolicy !== null && !this.equals(existingACPolicy);
-    //////////console.log("existingACPolicyyyyyyyyyyyyyy")
-    //////////console.log(this)
-    //if(this._rules)
-
-    //if (existingACPolicy !== null && ! (typeof existingACPolicy === 'undefined')) {//isNewACPolicy
-        //if(this === existingACPolicy)//!acP.equals(existingACPolicy
-        //aRule.setACPolicy(this);
-    //else
-    //this._rules.push(aRule);
-    //} else {
-       // this._rules.push(aRule);
-    //}
-    
+   
     wasAdded = true;
     return wasAdded;
 }
 
-//AC- To be completed 
+//AC- 
 removeRule(aRule) {
     let wasRemoved = false;
     if(this.findRule(aRule)){
@@ -365,16 +272,6 @@ removeRule(aRule) {
     }
 
       return wasRemoved;
-
-
-    // Unable to remove aRule, as it must always have an ACPolicy
-    //if (!this.equals(aRule.getACPolicy())) {
-        //let index = this._rules.indexOf(aRule);
-        //if (index !== -1) {
-         //   this._rules.splice(index, 1);
-          //  wasRemoved = true;
-       // }
-   // }
 
     
 }
@@ -419,26 +316,19 @@ findPolicy(aRule){
     return this._constraints.find(obj => obj.decision === aRule.decision && obj.permission === aRule.permission && obj.accessedResource._name === aRule.accessedResource._name && obj.accessedResource._type === aRule.accessedResource._type && obj.accessedRole._name === aRule.accessedRole._name && obj.accessedRole._type === aRule.accessedRole._type);  
 }
 
-//AC
-//fEquals(){
-    
-//}
+
 
 //Utility function 
 //AC-check if the rules does not contain rules that conflict with the policy(constraines)
 isValid(aRule){
-    ////////console.log("I enter isValid")
 //isValid 
 //check in the policy (constrains), if there is any conflict between the added rule and the constraints 
 let isValidVar = true
-        //AC-change forEach to for
-        //this._constraints.forEach(constraint => 
+   
             for (const constraint of this._constraints){
-            ////////console.log("I am before if in isValid")
             if(constraint.accessedResource._name === aRule.accessedResource._name && constraint.accessedResource._type === aRule.accessedResource._type && constraint.accessedRole._name === aRule.accessedRole._name && constraint.accessedRole._type === aRule.accessedRole._type)//&& obj.byRole === aRule.byRole
             {
-                ////////console.log("I am Koshet in if for isValid")
-                ////////console.log(constraint)
+                
                 switch (aRule.decision) {
                     case 'grant':
                         switch (aRule.permission) {
@@ -473,13 +363,10 @@ let isValidVar = true
                         }
                         break;
                     case 'revoke':
-                        ////////console.log("I am in revoke")
                         switch (aRule.permission.toLowerCase()) {
                             case 'read':
-                                ////////console.log("I am before if in revoke read for isValid")
                                  if(constraint.decision === 'grant' && 
                                     (constraint.permission === 'read' || constraint.permission === 'all' || constraint.permission === 'write' )){
-                                        ////////console.log("I am Koshet in switch of revoke read for isValid")
                                         isValidVar = false
                                         return false
                                     }
@@ -511,20 +398,15 @@ let isValidVar = true
             }//end if
 
         };//end forEach //)
-        ////////console.log("isValidVar")
         return isValidVar;
     }
 
 //utlity
 //AC
-//never used it 
-reverseDecision(aDecision){
 
-}
 
 //utlity
 //Helper function to check if decision is "all" or a specific action
-//never used it
 matchesDecision(decision, targetDecision) {
     return decision === 'all' || decision === targetDecision;
 }
@@ -537,7 +419,6 @@ updatePolicy(aRule) {
     let rulesToRemove = [];
     let rulesToAdd = [];
     //AC 
-    //this._constraints.forEach(constraint =>
     for (const constraint of this._constraints) {
         if (constraint.accessedResource._name === aRule.accessedResource._name && constraint.accessedResource._type === aRule.accessedResource._type && constraint.accessedRole._name === aRule.accessedRole._name && constraint.accessedRole._type === aRule.accessedRole._type) {//constraint.accessedResource === aRule.accessedResource && constraint.accessedRole === aRule.accessedRole
             switch (aRule.decision) {
@@ -559,9 +440,7 @@ updatePolicy(aRule) {
                                         constraint.permission = 'write';
                                         let remainedRule = new Rule('revoke', 'transfer', constraint.accessedResource, constraint.accessedRole, constraint.byRole, this);
                                         rulesToAdd.push(remainedRule)
-                                        //to push the grant read 
-                                        //canAdd =  true;
-                                        //return 
+                                   
                                     }
                                     break;
                             }
@@ -590,9 +469,7 @@ updatePolicy(aRule) {
                                     }
                                     if (constraint.permission === 'all'){
                                         constraint.permission = 'transfer'
-                                        //add grant write
-                                        //canAdd =  true
-                                        //return
+                                    
                                     }
                                     break;
                             }
@@ -616,9 +493,7 @@ updatePolicy(aRule) {
                                     if(constraint.permission === 'read' || constraint.permission === 'write' || constraint.permission === 'transfer'){
                                         //push to be deleted
                                         rulesToRemove.push(constraint)
-                                        //
-                                        //canAdd =  true
-                                        //return
+                                   
                                     }
                                     
                             }
@@ -636,9 +511,7 @@ updatePolicy(aRule) {
                                         constraint.permission = 'write'
                                         let remainedRule = new Rule('revoke', 'read', constraint.accessedResource, constraint.accessedRole,constraint.byRole, this);
                                         rulesToAdd.push(remainedRule)
-                                        //
-                                        //canAdd =  true
-                                        //return
+                                   
                                     }
                             }
                             break
@@ -758,8 +631,6 @@ updatePolicy(aRule) {
         }
     };//)
     
-    //this._constraints = this._constraints.filter(element => !rulesToRemove.includes(element));
-    //this._constraints = this._constraints.push(element => !rulesToAdd.includes(element));
 
     // Remove rules marked for deletion
     this._constraints = this._constraints.filter(
@@ -767,7 +638,6 @@ updatePolicy(aRule) {
     );
 
     // Add new rules
-    //this._constraints = this._constraints.concat(rulesToAdd);
     rulesToAdd.forEach(rule => this._constraints.push(rule));
 
     return canAdd;
@@ -1001,8 +871,6 @@ updateRule(aRule) {
         }
     }; //)
     
-    //this._constraints = this._constraints.filter(element => !rulesToRemove.includes(element));
-    //this._constraints = this._constraints.push(element => !rulesToAdd.includes(element));
 
     // Remove rules marked for deletion
     this._rules = this._rules.filter(
@@ -1021,32 +889,13 @@ updateRule(aRule) {
 //AC-Policies are enforced automatically after every authorization/deauthorization(addRule/deleteRule)
 //Constraints
 addPolicy(aRule){
-    ////////console.log("inside addPolicy with single parameter--------------------------")
     let wasAdded = false;
 
     //to check if the policy exist
     if (this.findPolicy(aRule) || this.hasPermesstion(aRule.decision,aRule.permission, aRule.accessedResource, aRule.accessedRole, aRule.byRole )) {  //this.hasPermesstion(aRule.decision,aRule.permission, aRule.accessedResource, aRule.accessedRole)
         return false;
     }
-    //REVOKE action on resource to role by regulator 
-    /*
-    she has read --> REVOKE read (no permission)
-    she has Write --> REVOKE Write (has no permission), REVOKE read (no permission)
-    she has all --> REVOKE all (no permission), REVOKE write -->(will have to read and transfer), REVOKE transfer (will have read and write), REVOKE read (no permission)
-    she has transfer --> REVOKE transfer 
-    she has anypermission previllage --> revoke all no permission
-    */
-    //Grant action on resource to role by regulator
-    /*
-    //we have to check if the constraints is already assigned to the role. if yes (hasPermessition), this means we will not added to the constraines becasue it is already granted by pre-authrization rules
-    //                                                                     if no 
-    //enhance hasPermessition, when adding constraints we can not grant somthing already preauthrized or less than what she has
-    she has read --> GRANT write (she has write permission), GRANT transfer (has read and transfer), 
-    she has Write --> Grant transfer (has all permission)
-    she has all --> hasPermessition 
-    she has transfer --> GRANT write (has all permission), GRANT read (has transfer and read)
-    she has anypermission previllage --> GRANT all (will have all permission) 
-    */
+   
 
     // if not exist add it
     if(this.updatePolicy(aRule)){
@@ -1076,242 +925,10 @@ delete() {
     super.delete();
 }
 
-// toString method
-/*cuz I removed policyid
-toString() {
-    return super.toString() + "[" + "]" + System.getProperties().getProperty("line.separator") +
-        "  " + "policyId" + "=" + (this.getPolicyId() !== null ? !this.getPolicyId().equals(this) ? this.getPolicyId().toString().replaceAll("  ","    ") : "this" : "null");
-}
-*/
+
 
 }
 
 module.exports.ACPolicy = ACPolicy;
-
-/**
- hasPermesstion(aDecision,aAction, aAccessedResource, aAccessedRole){
-let aRule = new Rule(aDecision, aAction, aAccessedResource, aAccessedRole, this)
-if(this.findRule(aRule)){
-    //has permesstion
-    return true
-  }else{
-    ////////console.log("aRule.accessedResource._controller from test")
-    ////////console.log(aRule.accessedResource._controller)
-    if(aRule.accessedResource.findController(aRule.accessedRole)){//&& aRule.permission === 'Read'
-       ////////console.log("aRule.accessedResource._me in if Controller of contractttttt")
-       //if resource not type of Event or Asset or Role, then it is a contract
-       if(!(aRule.accessedResource instanceof Event) && !(aRule.accessedResource instanceof Asset) && !(aRule.accessedResource instanceof Role) ){//aRule.permission === 'Read' &&
-        ////////console.log("Contract")
-        return true 
-       }else
-       {
-        if(aRule.permission === 'Read')
-        return true 
-       }
-    }// end if for controller
-    if(aRule.accessedResource instanceof Asset){
-        if(aRule.accessedResource._owners._value === aRule.accessedRole){
-        return true
-        }
-    }// end if for Asset
-    ////////console.log("aRule.accessedResource._ performer before instance of")
-    ////////console.log( aRule.accessedResource instanceof Event )
-    if((aRule.accessedResource instanceof LegalPosition) || (aRule.accessedResource instanceof Event)){ //|| (aRule.accessedResource instanceof Operation) 
-        ////////console.log("aRule.accessedResource._ performer after instance of")
-        // here we could findperformer and find controler cuz it is a lsit
-       if(aRule.accessedResource._performer.includes(aRule.accessedRole))
-       {
-        ////////console.log("aRule.accessedResource._ performer after if")
-        return true
-    }
-    if(aRule.accessedResource instanceof Obligation){
-        if(aRule.accessedResource._rightHolder.includes(aRule.accessedRole)){//&& aRule.permission === 'Read'
-            return true
-        }
-        if(aRule.accessedResource._liable.includes(aRule.accessedRole)){
-            return true
-        }
-    }// end if for obligation
-    if(aRule.accessedResource instanceof Power){
-        if(aRule.accessedResource._liable.includes(aRule.accessedRole)){//&& aRule.permission === 'Read'
-            return true
-        }
-        if(aRule.accessedResource._rightHolder.includes(aRule.accessedRole)){
-            return true
-        }
-    }// end if for power
-
-    }// end if for instance of legal posiiton, event, operation
-    if(aRule.accessedResource instanceof Role){
-        if(aRule.accessedResource === aRule.accessedRole ){
-           return true
-        }
-    }// end if for Role
-    //if(aRule.accessedResource instanceof SymboleoContract){// use getParty
-       // if((aRule.accessedResource.findController(aRule.accessedRole))){
-        //    return true
-       // }
-    //}// end if for Contract 
-    return false
-  }
-}
-
- */
-
-
-
-
-
-
-
-
-
-
-//module.exports = constructor
-
-
-
-    /*
-    constructor(aId, aRule, allController) {
-        super(aRule, allController);
-        this.id = aId;
-        this.rules = [];
-    }
-
-    setId(aId) {
-        let wasSet = false;
-        this.id = aId;
-        wasSet = true;
-        return wasSet;
-    }
-
-    getId() {
-        return this.id;
-    }
-
-    getRule(index) {
-        const aRule = this.rules[index];
-        return aRule;
-    }
-
-    getRules() {
-        return this.rules
-    }
-
-    numberOfRules() {
-        return this.rules.length;
-    }
-
-    hasRules() {
-        return this.rules.length > 0;
-    }
-
-    indexOfRule(aRule) {
-        const index = this.rules.findIndex((o) => o.equals(aRule));
-        return index;
-    }
-
-    minimumNumberOfRules() {
-        return 0;
-    }
-
-    addRule(aId) {
-        return new Rule(aId, this);
-    }
-
-    addRule(aRule) {
-        var wasAdded = false;
-    
-        if (this.rules.some((o) => o.equals(aRule))) {
-            return false;
-        }
-
-        var existingACPolicy = aRule.getACPolicy();
-        var isNewACPolicy = existingACPolicy !== null && this !== existingACPolicy;
-    
-        if (isNewACPolicy) {
-            aRule.setACPolicy(this);
-        } else {
-            rules.push(aRule);
-        }
-    
-        wasAdded = true;
-        return wasAdded;
-    }
-// cheack indexOf for removeRule, addRulrAt, and addOrMoveRuleAt
-    removeRule(aRule) {
-        var wasRemoved = false;
-    
-        // Unable to remove aRule, as it must always have a ACPolicy
-        if (this !== aRule.getACPolicy()) {
-            var index = rules.indexOf(aRule);
-            if (index !== -1) {
-                rules.splice(index, 1);
-                wasRemoved = true;
-            }
-        }
-    
-        return wasRemoved;
-    }
-
-    addRuleAt(aRule, index) {
-        var wasAdded = false;
-    
-        if (this.addRule(aRule)) {
-            if (index < 0) {
-                index = 0;
-            }
-            if (index > this.numberOfRules()) {
-                index = this.numberOfRules();
-            }
-    
-            var indexOfRule = rules.indexOf(aRule);
-            rules.splice(indexOfRule, 1);
-    
-            rules.splice(index, 0, aRule);
-            wasAdded = true;
-        }
-    
-        return wasAdded;
-    }
-
-    addOrMoveRuleAt(aRule, index) {
-        var wasAdded = false;
-    
-        if (this.rules.some((o) => o.equals(aRule))) {
-            if (index < 0) {
-                index = 0;
-            }
-            if (index > numberOfRules()) {
-                index = numberOfRules() - 1;
-            }
-    
-            var indexOfRule = rules.indexOf(aRule);
-            rules.splice(indexOfRule, 1);
-    
-            rules.splice(index, 0, aRule);
-            wasAdded = true;
-        } else {
-            wasAdded = addRuleAt(aRule, index);
-        }
-    
-        return wasAdded;
-    }
-
-    deleteACPolicy() {
-        while (rules.length > 0) {
-            var aRule = rules[rules.length - 1];
-            aRule.delete();
-            rules.pop();
-        }
-    
-        // Assuming super.delete() is a valid operation in your context
-        super.delete();
-    }
-
-    equals(obj) {
-        return obj.id != null && obj instanceof ACPolicy && obj.id === this.id;
-      }
-    */
     
    

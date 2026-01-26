@@ -29,19 +29,22 @@ const ContractActiveState = {
   Rescission: 'Rescission',
 };
 
-//Sofana-AC I added extends and controller to constructor and super
-//Sofana-AC, if it sends list we will add a list, if not we will push them as default
-//***Sofana-AC, for initilization contoller for the first time (setContoller) did not work, instead we call addController
 class SymboleoContract extends Resource {
   constructor(name,controllerList) {//controllerList
-    //Sofana-AC
     super(controllerList);
-    //Sofana-AC
-    //controllerList = [];
-    //Sofana-AC
     const now = new Date();
     // eslint-disable-next-line max-len
-    this.id = `${name}_${now.getUTCFullYear()}${now.getUTCMonth()}${now.getUTCDate()}${now.getUTCHours()}`;
+    const m = String(now.getUTCMonth() + 1).padStart(2, '0'); // month 01-12
+    const d = String(now.getUTCDate()).padStart(2, '0');
+    const hh = String(now.getUTCHours()).padStart(2, '0');
+    const mm = String(now.getUTCMinutes()).padStart(2, '0');
+    const ss = String(now.getUTCSeconds()).padStart(2, '0');
+    const ms = String(now.getUTCMilliseconds()).padStart(3, '0');
+    
+    //to add seconds and so on to contractId
+    this.id = `${name}_${now.getUTCFullYear()}${m}${d}${hh}${mm}${ss}${ms}`;
+    //uncomment this if you want only year month day and hours
+    //this.id = `${name}_${now.getUTCFullYear()}${now.getUTCMonth()}${now.getUTCDate()}${now.getUTCHours()}`;
     this.setActiveState(ContractActiveState.Null);
     this.setState(ContractState.Form);
     this._events = {};
@@ -516,9 +519,7 @@ class SymboleoContract extends Resource {
 
   //AC
   getRole(aName, aType){
-    //console.log("I am in get role before if")
     if(typeof aName !== undefined && aType !== undefined){
-      //console.log("I am in get role after if")
       for(const obj of this._roles){
         if(obj._name === aName && obj._type === aType){
           return obj
@@ -539,27 +540,6 @@ class SymboleoContract extends Resource {
     }
     return wasAdded; 
 
-    /*
-    let wasAdded = false;
-    if (this._roles.some((o) => o.equals(aRole))) {
-      return false;
-    }
-    //////console.log("I am in addRoleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-    const existingContract = aRole.getContract();
-    const isNewContract = existingContract != null
-    && !this.equals(existingContract);
-
-    if (isNewContract
-      && existingContract.numberOfRoles() <= this.minimumNumberOfRoles()) {
-      return wasAdded;
-    }
-    if (isNewContract) {
-      aRole.setContract(this);
-    } else {
-      this._roles.push(aRole);
-    }
-    wasAdded = true;
-    return wasAdded;*/
   }
 
 //AC
@@ -583,19 +563,6 @@ findRole(aRole){
     }
     return wasRemoved; 
 
-/*
-    if (this.equals(aRole.getContract())) {
-      return wasRemoved;
-    }
-
-    if (this.numberOfRoles() <= this.minimumNumberOfRoles()) {
-      return wasRemoved;
-    }
-
-    const index = this._roles.findIndex((o) => o.equals(aRole));
-    this._roles.splice(index, 1);
-    wasRemoved = true;
-    return wasRemoved;*/
   }
 
   isNumberOfPartiesValid() {
@@ -764,19 +731,10 @@ findRole(aRole){
   //return all legal position
   findLegalPosition(aName, aType, aContract){
     
-    ////console.log("aName")
-    ////console.log(aName)
-    ////console.log("aType")
-    ////console.log(aType)
-
     if(aType.toLowerCase() === "obligation"){
-      //////console.log("I am here")
 
     for (const obligationKey of Object.keys(aContract.obligations)) {
       
- 
-      //////console.log("obligationKey.name.toLowerCase()")
-      //////console.log(obligationKey)
       if(obligationKey === aName){
           return aContract.obligations[obligationKey]
       }

@@ -1,7 +1,5 @@
 const { Resource } = require('./Resource.js');
 
-//Sofana-AC here I added extends
-//Sofana-AC here I added controller as owner in the super
 class Asset extends Resource {
   constructor(id, owner, contract, legaPositions) {
     super(owner)

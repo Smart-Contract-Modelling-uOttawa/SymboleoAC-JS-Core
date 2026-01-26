@@ -20,13 +20,11 @@ const ObligationActiveState = {
   InEffect: 'InEffect',
   Suspension: 'Suspension',
 };
-// Sofana-AC here I added controller and in the super as well 
+
 class Obligation extends LegalPosition {
   constructor(name, creditor, debtor, contract, aLegalSituation, surviving) {
     super(name, creditor, debtor, contract, debtor, aLegalSituation);
-    //Sofana-AC
-    //this.addController(debtor);
-    //Sofana-AC
+  
     this.setActiveState(ObligationActiveState.Null);
     this.setState(ObligationState.Start);
     this._events = {};
@@ -56,15 +54,7 @@ class Obligation extends LegalPosition {
     return this.state === ObligationState.Fulfillment;
   }
 
-  //AC
-  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
-  //getFulfilledTime() {
-    //if(this.state === ObligationState.Fulfillment){
-      //return this._events.Fulfilled.getHappenedTime()
-    //}else{
-      //return null
-    //}
-  //}
+
 
   isActive() {
     return this.state === ObligationState.Active;
@@ -140,13 +130,6 @@ class Obligation extends LegalPosition {
     }
   }
 
-  //AC
-  // utlity function for run time, to return the state of obligations for roles that has permesstion to see the obligation state
-  //finished
-
-
-  
-  
 
   isUnsuccessfulTermination() {
     return this.state === ObligationState.UnsuccessfulTermination;

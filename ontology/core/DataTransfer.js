@@ -57,16 +57,7 @@ addPerformer(aPerformer) {
   wasAdded = true;
   }
   return wasAdded;  
-  /*
-  let wasAdded = false;
-  if (!this._performer.includes(aPerformer) && aPerformer !== null) {
-    ////console.log("aPerformer-------------------------")
-     ////console.log(aPerformer)
-      this._performer.push(aPerformer);
-      wasAdded = true;
-  }
-  return wasAdded;
-  */
+
 }
 
 // removePerformer method
@@ -84,20 +75,11 @@ removePerformer(aPerformer) {
   //utlity function
   findPerformer(aPerformer){
     let isPerformer = false
-    //console.log("I am inside findController in Event class")
-    //this._controller.find(obj => obj === aController)
-    //console.log(aPerformer)
+  
     isPerformer = this._performer.some(obj => obj._name === aPerformer._name && obj._type === aPerformer._type)
-    //console.log("isPerformer")
-    //console.log(isPerformer); // true
-    //this._performer.forEach(obj => {if(obj === aPerformer){
-      //////console.log("I am inside if in findController")
-      //isPerformer = true;
+
       return isPerformer
-    //}  //////console.log("obj")
-     //////console.log(obj)
-  //})
-    //return  isPerformer  
+
   }
 
 // association_AddIndexControlFunctions
@@ -134,7 +116,7 @@ delete() {
   this._performer = [];
   super.delete();
 }
-//Sofana-AC
+//AC
 
   happen(event) {
     this._triggered = true;

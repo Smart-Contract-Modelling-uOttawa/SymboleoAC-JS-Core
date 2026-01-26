@@ -2,9 +2,6 @@ const { SymboleoContract } = require('./SymboleoContract.js');
 const { Resource } = require('./Resource.js');
 
 
-//deleted -->here I added resources = [], and below this._resources = resources; resources = []// deleted
-// here I added aAuthentication, ...allController in the constructor and send them to the super
-//***we did not decied controller 
 class Role extends Resource  {
   constructor(id, contract, party = null, debt = [], credit = []) {
     super();
@@ -71,101 +68,7 @@ class Role extends Resource  {
     return index;
   }
 
-  //sofana AC for addController (bidirectional assosication)
-  /*
-  getResource(index) {
-    return this._resources[index];
-  }
-
-  numberOfResources() {
-    return this._resources.length;
-  }
-
-  hasResources() {
-    return this._resources.length > 0;
-  }
-
-  indexOfResource(aResource) {
-    const index = this._resources.findIndex((o) => o.equals(aResource));
-    return index;
-    }
-
-  addResource(aResource) {
-    console.log("I am insde addResource in Role class")
-      let wasAdded = false;
-  
-      if (this._resources.some(aResource.equals)) {
-          return false;
-      }
-  
-      this._resources.push(aResource);
-  
-      if (aResource.indexOfController(this) !== -1) {
-          wasAdded = true;
-      } else {
-          wasAdded = aResource.addController(this);
-  
-          if (!wasAdded) {
-            const index = this._resources.findIndex((o) => o.equals(aResource));
-            this._resources.splice(index, 1);
-          }
-      }
-  
-      return wasAdded;
-  } 
-
-  removeResource(aResource) {
-    let wasRemoved = false;
-    if (!this._resources.some((o) => o.equals(aResource))) {
-      return wasRemoved;
-    }
-
-    const oldIndex = this._resources.findIndex((o) => o.equals(aResource));
-    this._resources.splice(oldIndex, 1);
-    if (aResource.indexOfController(this) === -1) {
-      wasRemoved = true;
-    } else {
-      wasRemoved = aResource.removeController(this);
-      if (!wasRemoved) {
-        this._resources.splice(oldIndex, 0, aResource);
-      }
-    }
-    return wasRemoved;
-  }
-  */
-  //sofana
-
-  //Sofana-AC
-  // line 48 "model.ump"
-authorize(role, resource, operation) {
-  // Your implementation here
-}
-
-// line 51 "model.ump"
-authorize(role, resource, attribute, permission) {
-  // Your implementation here
-}
-
-// line 53 "model.ump"
-authorize(role, resource, permission) {
-  // Your implementation here
-}
-
-// line 55 "model.ump"
-deAuthorize(role, resource, operation) {
-  // Your implementation here
-}
-
-// line 57 "model.ump"
-deAuthorize(role, resource, attribute, permission) {
-  // Your implementation here
-}
-
-// line 59 "model.ump"
-deAuthorize(role, resource, permission) {
-  // Your implementation here
-}
-//Sofana-AC
+ 
  
   addDebt(aDebt) {
     let wasAdded = false;

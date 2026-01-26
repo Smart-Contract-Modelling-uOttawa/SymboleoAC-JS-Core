@@ -20,16 +20,9 @@ const PowerActiveState = {
   Suspension: 'Suspension',
 };
 
-// Sofana-AC here I added controller to constructor and super 
 class Power extends LegalPosition {
   constructor(name,creditor, debtor, contract,consequent) {
     super(name, creditor, debtor, contract, creditor,consequent);
-     //Sofana-AC
-     //controllerList = []
-    //console.log("printing controller for power from class Power")
-    //console.log(creditor)
-    //this.addController(creditor);
-     //Sofana-AC
     this.setActiveState(PowerActiveState.Null);
     this.setState(PowerState.Start);
     this._events = {};

@@ -1,19 +1,16 @@
 const { AbstractEvent } = require('./AbstractEvent.js');
 
 class Event extends AbstractEvent {
-  // here I added controller and authintication to the constructor
-  // Also I added controller and authintication to the super
-  // also I added performer
+
   constructor(allController) {
     super(allController); 
     this._triggered = false;
     this._timestamp = null;
     this._performer = [];
     this.addPerformer(allController)// default specifed as perforemer in the specefication 
-    //***Note from Amal -> when we do not hava a performer that assigned in the specification, we have to use this._performer = []
   }
 
-  //Sofana-AC
+ 
   // INTERFACE
 
 // association_GetMany
@@ -63,16 +60,7 @@ addPerformer(aPerformer) {
   wasAdded = true;
   }
   return wasAdded;  
-  /*
-  let wasAdded = false;
-  if (!this._performer.includes(aPerformer) && aPerformer !== null) {
-    ////console.log("aPerformer-------------------------")
-     ////console.log(aPerformer)
-      this._performer.push(aPerformer);
-      wasAdded = true;
-  }
-  return wasAdded;
-  */
+
 }
 
 // removePerformer method
@@ -90,20 +78,10 @@ removePerformer(aPerformer) {
   //utlity function
   findPerformer(aPerformer){
     let isPerformer = false
-    //console.log("I am inside findController in Event class")
-    //this._controller.find(obj => obj === aController)
-    //console.log(aPerformer)
     isPerformer = this._performer.some(obj => obj._name === aPerformer._name && obj._type === aPerformer._type)
-    //console.log("isPerformer")
-    //console.log(isPerformer); // true
-    //this._performer.forEach(obj => {if(obj === aPerformer){
-      //////console.log("I am inside if in findController")
-      //isPerformer = true;
+
       return isPerformer
-    //}  //////console.log("obj")
-     //////console.log(obj)
-  //})
-    //return  isPerformer  
+ 
   }
 
 // association_AddIndexControlFunctions
@@ -140,8 +118,7 @@ delete() {
   this._performer = [];
   super.delete();
 }
-//Sofana-AC
-
+//AC
 happen(event) {
     this._triggered = true;
     const d = new Date();

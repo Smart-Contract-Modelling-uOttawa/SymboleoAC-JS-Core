@@ -87,7 +87,7 @@ class LegalSituation extends Situation {
   static minimumNumberOfConsequentOf() {
     return 0;
   }
-  //AC-modification - in the thesis 
+  //AC-modification 
 //return this._constraints.find(obj => obj.decision === aRule.decision && obj.permission === aRule.permission && obj.accessedResource === aRule.accessedResource && obj.accessedRole === aRule.accessedRole);  
   addConsequentOf(arg) {
     let wasAdded = false;
