@@ -157,8 +157,10 @@ toString() {
 }//end of class 
 
 module.exports.Rule = Rule;
-module.exports.Permission
-module.exports.Decision
+// Phase 3 (O4b): these two lines previously exported nothing (bare property
+// accesses); the enumerations are now really exported.
+module.exports.Permission = permission;
+module.exports.Decision = decision;
 
 
 

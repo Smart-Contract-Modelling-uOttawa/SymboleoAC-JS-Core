@@ -67,7 +67,7 @@ class LegalPosition {
   
   //For Access Control
   isA Resource;
-  1..* legalPositionSE   -- 0..* Event LegalPositionStateEven;
+  1..* legalPositionSE   -- 0..* Event legalPositionStateEvent;
   1 legalpositionST   -- 1 StateTransition stateTransition; 
 }
 
@@ -195,7 +195,7 @@ class Rule {
   Decision decision;
   
   0..1 rule  -- 1 Resource accessedResource; 
-  0..1 ruleAccesseor  -- 1 Role accessedRole; 
+  0..1 ruleAccessor  -- 1 Role accessedRole;
 }
 
 //For Access Control
@@ -210,8 +210,8 @@ class Operation{
 //For Access Control
 class Attribute{ 
   isA Resource;
-  1..* inputAttributs -- 1..* Operation consumerOperations;
-  0..* outputAttributs -- 1 Operation producerOperation;
+  1..* inputAttributes -- 1..* Operation consumerOperations;
+  0..* outputAttributes -- 1 Operation producerOperation;
 }
 
 //For Access Control
@@ -228,4 +228,35 @@ class StateTransition{
 class AbstractEvent{
   isA Resource;
   0..1 -- 1..* Attribute attributes;
-} 
+}
+
+// Phase 3 (O4c): Operation.preCondition/postCondition were typed as
+// Condition, but no Condition class existed. Declare it explicitly, with
+// the left-side/operator/right-side shape the runtime uses in
+// LegalSituation metadata.
+class Condition {
+  String leftSide;
+  String op;
+  String rightSide;
+}
+
+// Phase 3 (O4a): a Role plays a role IN a contract; a Credential is what
+// LETS a caller play that role at runtime. The generated authenticate()
+// binds a caller's X.509 attributes (name, org, dept) to a Role instance;
+// making the binding first-class in the ontology stops the "dept
+// requirement" being folklore -- it becomes the Credential's declared
+// attributes. A Role may be playable via zero or more credentials (paper
+// contracts, off-chain identity), and a credential is issued by an
+// Authority (typically the deploying organization's CA).
+class Credential {
+  String subjectName;
+  String subjectOrg;
+  String subjectDept;
+  1 credentialFor -- 1 Role role;
+  0..1 issuedBy -- 0..* Authority issuer;
+}
+
+// The party (e.g. a certificate authority) that vouches for credentials.
+class Authority {
+  String name;
+}
