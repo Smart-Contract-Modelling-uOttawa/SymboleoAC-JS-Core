@@ -1,17 +1,17 @@
 /* eslint-disable max-len */
 // eslint-disable-next-line no-unused-vars
 const { expect } = require('chai');
-const { ACPolicy } = require('../core/ACPolicy.js');
-const { Attribute }  = require('../core/Attribute.js');
-//const { Operation }  = require('../core/Operation.js'); check why I get an error
-const { Resource } = require('../core/Resource.js');
-const {Rule} = require('../core/Rule.js');
-const { SymboleoContract } = require('../core/SymboleoContract.js');
-const { Power } = require('../core/Power.js');
-const { Role } = require('../core/Role.js');
-const { Obligation } = require('../core/Obligation.js');
-const { Asset } = require('symboleo-js-core');
-const { Event } = require('symboleo-js-core');
+const { ACPolicy } = require('../ontology/core/ACPolicy.js');
+const { Attribute }  = require('../ontology/core/Attribute.js');
+//const { Operation }  = require('../ontology/core/Operation.js'); check why I get an error
+const { Resource } = require('../ontology/core/Resource.js');
+const {Rule} = require('../ontology/core/Rule.js');
+const { SymboleoContract } = require('../ontology/core/SymboleoContract.js');
+const { Power } = require('../ontology/core/Power.js');
+const { Role } = require('../ontology/core/Role.js');
+const { Obligation } = require('../ontology/core/Obligation.js');
+const { Asset } = require('../ontology/core/Asset.js');
+const { Event } = require('../ontology/core/Event.js');
 
 
 describe('ACPolicy', () => {
