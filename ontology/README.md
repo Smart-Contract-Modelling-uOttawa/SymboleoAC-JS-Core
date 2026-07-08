@@ -26,9 +26,15 @@ SymboleoAC.ump  ──Umple──▶  Java/  ──translated──▶  core/  (
 Keep `SymboleoAC.ump` as the single point of edit; the `Java/` binding, the
 `core/` implementation, and the `diagrams/` are all downstream of it.
 
-## Class diagram (legal core)
+## Class diagrams
 
-A quick preview — see [`diagrams/`](diagrams) for the Access-Control layer view,
-the complete overview, and the per-class documentation.
+Previews of the two layers — see [`diagrams/`](diagrams) for the complete
+overview and the per-class documentation.
+
+**Symboleo legal core**
 
 ![SymboleoAC legal core class diagram](diagrams/SymboleoAC-core.svg)
+
+**Access-Control layer**
+
+![SymboleoAC access-control class diagram](diagrams/SymboleoAC-access-control.svg)
