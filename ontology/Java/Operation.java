@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
@@ -7,8 +7,8 @@ import java.util.*;
 /**
  * For Access Control
  */
-// line 211 "model.ump"
-// line 337 "model.ump"
+// line 203 "model.ump"
+// line 344 "model.ump"
 public class Operation extends Resource
 {
 
@@ -22,8 +22,8 @@ public class Operation extends Resource
 
   //Operation Associations
   private List<Role> performer;
-  private List<Attribute> inputAttributs;
-  private List<Attribute> outputAttributs;
+  private List<Attribute> inputAttributes;
+  private List<Attribute> outputAttributes;
 
   //------------------------
   // CONSTRUCTOR
@@ -35,8 +35,8 @@ public class Operation extends Resource
     preCondition = aPreCondition;
     postCondition = aPostCondition;
     performer = new ArrayList<Role>();
-    inputAttributs = new ArrayList<Attribute>();
-    outputAttributs = new ArrayList<Attribute>();
+    inputAttributes = new ArrayList<Attribute>();
+    outputAttributes = new ArrayList<Attribute>();
   }
 
   //------------------------
@@ -99,63 +99,63 @@ public class Operation extends Resource
     return index;
   }
   /* Code from template association_GetMany */
-  public Attribute getInputAttribut(int index)
+  public Attribute getInputAttribute(int index)
   {
-    Attribute aInputAttribut = inputAttributs.get(index);
-    return aInputAttribut;
+    Attribute aInputAttribute = inputAttributes.get(index);
+    return aInputAttribute;
   }
 
-  public List<Attribute> getInputAttributs()
+  public List<Attribute> getInputAttributes()
   {
-    List<Attribute> newInputAttributs = Collections.unmodifiableList(inputAttributs);
-    return newInputAttributs;
+    List<Attribute> newInputAttributes = Collections.unmodifiableList(inputAttributes);
+    return newInputAttributes;
   }
 
-  public int numberOfInputAttributs()
+  public int numberOfInputAttributes()
   {
-    int number = inputAttributs.size();
+    int number = inputAttributes.size();
     return number;
   }
 
-  public boolean hasInputAttributs()
+  public boolean hasInputAttributes()
   {
-    boolean has = inputAttributs.size() > 0;
+    boolean has = inputAttributes.size() > 0;
     return has;
   }
 
-  public int indexOfInputAttribut(Attribute aInputAttribut)
+  public int indexOfInputAttribute(Attribute aInputAttribute)
   {
-    int index = inputAttributs.indexOf(aInputAttribut);
+    int index = inputAttributes.indexOf(aInputAttribute);
     return index;
   }
   /* Code from template association_GetMany */
-  public Attribute getOutputAttribut(int index)
+  public Attribute getOutputAttribute(int index)
   {
-    Attribute aOutputAttribut = outputAttributs.get(index);
-    return aOutputAttribut;
+    Attribute aOutputAttribute = outputAttributes.get(index);
+    return aOutputAttribute;
   }
 
-  public List<Attribute> getOutputAttributs()
+  public List<Attribute> getOutputAttributes()
   {
-    List<Attribute> newOutputAttributs = Collections.unmodifiableList(outputAttributs);
-    return newOutputAttributs;
+    List<Attribute> newOutputAttributes = Collections.unmodifiableList(outputAttributes);
+    return newOutputAttributes;
   }
 
-  public int numberOfOutputAttributs()
+  public int numberOfOutputAttributes()
   {
-    int number = outputAttributs.size();
+    int number = outputAttributes.size();
     return number;
   }
 
-  public boolean hasOutputAttributs()
+  public boolean hasOutputAttributes()
   {
-    boolean has = outputAttributs.size() > 0;
+    boolean has = outputAttributes.size() > 0;
     return has;
   }
 
-  public int indexOfOutputAttribut(Attribute aOutputAttribut)
+  public int indexOfOutputAttribute(Attribute aOutputAttribute)
   {
-    int index = outputAttributs.indexOf(aOutputAttribut);
+    int index = outputAttributes.indexOf(aOutputAttribute);
     return index;
   }
   /* Code from template association_MinimumNumberOfMethod */
@@ -241,208 +241,208 @@ public class Operation extends Resource
     return wasAdded;
   }
   /* Code from template association_IsNumberOfValidMethod */
-  public boolean isNumberOfInputAttributsValid()
+  public boolean isNumberOfInputAttributesValid()
   {
-    boolean isValid = numberOfInputAttributs() >= minimumNumberOfInputAttributs();
+    boolean isValid = numberOfInputAttributes() >= minimumNumberOfInputAttributes();
     return isValid;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfInputAttributs()
+  public static int minimumNumberOfInputAttributes()
   {
     return 1;
   }
   /* Code from template association_AddManyToManyMethod */
-  public boolean addInputAttribut(Attribute aInputAttribut)
+  public boolean addInputAttribute(Attribute aInputAttribute)
   {
     boolean wasAdded = false;
-    if (inputAttributs.contains(aInputAttribut)) { return false; }
-    inputAttributs.add(aInputAttribut);
-    if (aInputAttribut.indexOfConsumerOperation(this) != -1)
+    if (inputAttributes.contains(aInputAttribute)) { return false; }
+    inputAttributes.add(aInputAttribute);
+    if (aInputAttribute.indexOfConsumerOperation(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aInputAttribut.addConsumerOperation(this);
+      wasAdded = aInputAttribute.addConsumerOperation(this);
       if (!wasAdded)
       {
-        inputAttributs.remove(aInputAttribut);
+        inputAttributes.remove(aInputAttribute);
       }
     }
     return wasAdded;
   }
   /* Code from template association_AddMStarToMany */
-  public boolean removeInputAttribut(Attribute aInputAttribut)
+  public boolean removeInputAttribute(Attribute aInputAttribute)
   {
     boolean wasRemoved = false;
-    if (!inputAttributs.contains(aInputAttribut))
+    if (!inputAttributes.contains(aInputAttribute))
     {
       return wasRemoved;
     }
 
-    if (numberOfInputAttributs() <= minimumNumberOfInputAttributs())
+    if (numberOfInputAttributes() <= minimumNumberOfInputAttributes())
     {
       return wasRemoved;
     }
 
-    int oldIndex = inputAttributs.indexOf(aInputAttribut);
-    inputAttributs.remove(oldIndex);
-    if (aInputAttribut.indexOfConsumerOperation(this) == -1)
+    int oldIndex = inputAttributes.indexOf(aInputAttribute);
+    inputAttributes.remove(oldIndex);
+    if (aInputAttribute.indexOfConsumerOperation(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aInputAttribut.removeConsumerOperation(this);
+      wasRemoved = aInputAttribute.removeConsumerOperation(this);
       if (!wasRemoved)
       {
-        inputAttributs.add(oldIndex,aInputAttribut);
+        inputAttributes.add(oldIndex,aInputAttribute);
       }
     }
     return wasRemoved;
   }
   /* Code from template association_SetMStarToMany */
-  public boolean setInputAttributs(Attribute... newInputAttributs)
+  public boolean setInputAttributes(Attribute... newInputAttributes)
   {
     boolean wasSet = false;
-    ArrayList<Attribute> verifiedInputAttributs = new ArrayList<Attribute>();
-    for (Attribute aInputAttribut : newInputAttributs)
+    ArrayList<Attribute> verifiedInputAttributes = new ArrayList<Attribute>();
+    for (Attribute aInputAttribute : newInputAttributes)
     {
-      if (verifiedInputAttributs.contains(aInputAttribut))
+      if (verifiedInputAttributes.contains(aInputAttribute))
       {
         continue;
       }
-      verifiedInputAttributs.add(aInputAttribut);
+      verifiedInputAttributes.add(aInputAttribute);
     }
 
-    if (verifiedInputAttributs.size() != newInputAttributs.length || verifiedInputAttributs.size() < minimumNumberOfInputAttributs())
+    if (verifiedInputAttributes.size() != newInputAttributes.length || verifiedInputAttributes.size() < minimumNumberOfInputAttributes())
     {
       return wasSet;
     }
 
-    ArrayList<Attribute> oldInputAttributs = new ArrayList<Attribute>(inputAttributs);
-    inputAttributs.clear();
-    for (Attribute aNewInputAttribut : verifiedInputAttributs)
+    ArrayList<Attribute> oldInputAttributes = new ArrayList<Attribute>(inputAttributes);
+    inputAttributes.clear();
+    for (Attribute aNewInputAttribute : verifiedInputAttributes)
     {
-      inputAttributs.add(aNewInputAttribut);
-      if (oldInputAttributs.contains(aNewInputAttribut))
+      inputAttributes.add(aNewInputAttribute);
+      if (oldInputAttributes.contains(aNewInputAttribute))
       {
-        oldInputAttributs.remove(aNewInputAttribut);
+        oldInputAttributes.remove(aNewInputAttribute);
       }
       else
       {
-        aNewInputAttribut.addConsumerOperation(this);
+        aNewInputAttribute.addConsumerOperation(this);
       }
     }
 
-    for (Attribute anOldInputAttribut : oldInputAttributs)
+    for (Attribute anOldInputAttribute : oldInputAttributes)
     {
-      anOldInputAttribut.removeConsumerOperation(this);
+      anOldInputAttribute.removeConsumerOperation(this);
     }
     wasSet = true;
     return wasSet;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addInputAttributAt(Attribute aInputAttribut, int index)
+  public boolean addInputAttributeAt(Attribute aInputAttribute, int index)
   {  
     boolean wasAdded = false;
-    if(addInputAttribut(aInputAttribut))
+    if(addInputAttribute(aInputAttribute))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfInputAttributs()) { index = numberOfInputAttributs() - 1; }
-      inputAttributs.remove(aInputAttribut);
-      inputAttributs.add(index, aInputAttribut);
+      if(index > numberOfInputAttributes()) { index = numberOfInputAttributes() - 1; }
+      inputAttributes.remove(aInputAttribute);
+      inputAttributes.add(index, aInputAttribute);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveInputAttributAt(Attribute aInputAttribut, int index)
+  public boolean addOrMoveInputAttributeAt(Attribute aInputAttribute, int index)
   {
     boolean wasAdded = false;
-    if(inputAttributs.contains(aInputAttribut))
+    if(inputAttributes.contains(aInputAttribute))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfInputAttributs()) { index = numberOfInputAttributs() - 1; }
-      inputAttributs.remove(aInputAttribut);
-      inputAttributs.add(index, aInputAttribut);
+      if(index > numberOfInputAttributes()) { index = numberOfInputAttributes() - 1; }
+      inputAttributes.remove(aInputAttribute);
+      inputAttributes.add(index, aInputAttribute);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addInputAttributAt(aInputAttribut, index);
+      wasAdded = addInputAttributeAt(aInputAttribute, index);
     }
     return wasAdded;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfOutputAttributs()
+  public static int minimumNumberOfOutputAttributes()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Attribute addOutputAttribut(LegalSituation aLegalSituationA, Role... allControllers)
+  public Attribute addOutputAttribute(LegalSituation aLegalSituationA, Role... allControllers)
   {
     return new Attribute(this, aLegalSituationA, allControllers);
   }
 
-  public boolean addOutputAttribut(Attribute aOutputAttribut)
+  public boolean addOutputAttribute(Attribute aOutputAttribute)
   {
     boolean wasAdded = false;
-    if (outputAttributs.contains(aOutputAttribut)) { return false; }
-    Operation existingProducerOperation = aOutputAttribut.getProducerOperation();
+    if (outputAttributes.contains(aOutputAttribute)) { return false; }
+    Operation existingProducerOperation = aOutputAttribute.getProducerOperation();
     boolean isNewProducerOperation = existingProducerOperation != null && !this.equals(existingProducerOperation);
     if (isNewProducerOperation)
     {
-      aOutputAttribut.setProducerOperation(this);
+      aOutputAttribute.setProducerOperation(this);
     }
     else
     {
-      outputAttributs.add(aOutputAttribut);
+      outputAttributes.add(aOutputAttribute);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeOutputAttribut(Attribute aOutputAttribut)
+  public boolean removeOutputAttribute(Attribute aOutputAttribute)
   {
     boolean wasRemoved = false;
-    //Unable to remove aOutputAttribut, as it must always have a producerOperation
-    if (!this.equals(aOutputAttribut.getProducerOperation()))
+    //Unable to remove aOutputAttribute, as it must always have a producerOperation
+    if (!this.equals(aOutputAttribute.getProducerOperation()))
     {
-      outputAttributs.remove(aOutputAttribut);
+      outputAttributes.remove(aOutputAttribute);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addOutputAttributAt(Attribute aOutputAttribut, int index)
+  public boolean addOutputAttributeAt(Attribute aOutputAttribute, int index)
   {  
     boolean wasAdded = false;
-    if(addOutputAttribut(aOutputAttribut))
+    if(addOutputAttribute(aOutputAttribute))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfOutputAttributs()) { index = numberOfOutputAttributs() - 1; }
-      outputAttributs.remove(aOutputAttribut);
-      outputAttributs.add(index, aOutputAttribut);
+      if(index > numberOfOutputAttributes()) { index = numberOfOutputAttributes() - 1; }
+      outputAttributes.remove(aOutputAttribute);
+      outputAttributes.add(index, aOutputAttribute);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveOutputAttributAt(Attribute aOutputAttribut, int index)
+  public boolean addOrMoveOutputAttributeAt(Attribute aOutputAttribute, int index)
   {
     boolean wasAdded = false;
-    if(outputAttributs.contains(aOutputAttribut))
+    if(outputAttributes.contains(aOutputAttribute))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfOutputAttributs()) { index = numberOfOutputAttributs() - 1; }
-      outputAttributs.remove(aOutputAttribut);
-      outputAttributs.add(index, aOutputAttribut);
+      if(index > numberOfOutputAttributes()) { index = numberOfOutputAttributes() - 1; }
+      outputAttributes.remove(aOutputAttribute);
+      outputAttributes.add(index, aOutputAttribute);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addOutputAttributAt(aOutputAttribut, index);
+      wasAdded = addOutputAttributeAt(aOutputAttribute, index);
     }
     return wasAdded;
   }
@@ -455,23 +455,23 @@ public class Operation extends Resource
     {
       aPerformer.removePerformedOperation(this);
     }
-    ArrayList<Attribute> copyOfInputAttributs = new ArrayList<Attribute>(inputAttributs);
-    inputAttributs.clear();
-    for(Attribute aInputAttribut : copyOfInputAttributs)
+    ArrayList<Attribute> copyOfInputAttributes = new ArrayList<Attribute>(inputAttributes);
+    inputAttributes.clear();
+    for(Attribute aInputAttribute : copyOfInputAttributes)
     {
-      if (aInputAttribut.numberOfConsumerOperations() <= Attribute.minimumNumberOfConsumerOperations())
+      if (aInputAttribute.numberOfConsumerOperations() <= Attribute.minimumNumberOfConsumerOperations())
       {
-        aInputAttribut.delete();
+        aInputAttribute.delete();
       }
       else
       {
-        aInputAttribut.removeConsumerOperation(this);
+        aInputAttribute.removeConsumerOperation(this);
       }
     }
-    for(int i=outputAttributs.size(); i > 0; i--)
+    for(int i=outputAttributes.size(); i > 0; i--)
     {
-      Attribute aOutputAttribut = outputAttributs.get(i - 1);
-      aOutputAttribut.delete();
+      Attribute aOutputAttribute = outputAttributes.get(i - 1);
+      aOutputAttribute.delete();
     }
     super.delete();
   }

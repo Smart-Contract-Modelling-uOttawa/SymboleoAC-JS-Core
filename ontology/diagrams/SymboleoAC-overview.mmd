@@ -1,0 +1,144 @@
+%% SymboleoAC metamodel - complete overview (Symboleo legal core + Access-Control layer)
+%% Generated from ontology/SymboleoAC.ump. Amber = Symboleo legal core; blue = Access-Control layer.
+classDiagram
+    direction LR
+
+    %% ===== Enumerations (Access-Control) =====
+    class Action:::ac {
+        <<enumeration>>
+        read
+        write
+        all
+        transfer
+    }
+    class Decision:::ac {
+        <<enumeration>>
+        Grant
+        Revoke
+    }
+
+    %% ===== Symboleo legal core =====
+    class Contract:::core {
+        «state» status
+    }
+    class Party:::core
+    class Role:::core
+    class Asset:::core
+    class LegalPosition:::core
+    class Obligation:::core {
+        Boolean surviving
+        «state» status
+    }
+    class Power:::core {
+        «state» status
+    }
+    class Situation:::core
+    class LegalSituation:::core
+    class Event:::core
+    class TimeInterval:::core
+    class TimePoint:::core
+
+    %% ===== Access-control layer =====
+    class Resource:::ac
+    class Policy:::ac
+    class Rule:::ac {
+        Action action
+        Decision decision
+    }
+    class Operation:::ac {
+        Condition preCondition
+        Condition postCondition
+    }
+    class Attribute:::ac
+    class AbstractEvent:::ac
+    class DataTransfer:::ac
+    class StateTransition:::ac
+    class Condition:::ac {
+        String leftSide
+        String op
+        String rightSide
+    }
+    class Credential:::ac {
+        String subjectName
+        String subjectOrg
+        String subjectDept
+    }
+    class Authority:::ac {
+        String name
+    }
+
+    %% ===== Generalizations (isA) =====
+    Resource <|-- Contract
+    Resource <|-- Role
+    Resource <|-- Asset
+    Resource <|-- LegalPosition
+    Resource <|-- Policy
+    Resource <|-- Operation
+    Resource <|-- Attribute
+    Resource <|-- StateTransition
+    Resource <|-- AbstractEvent
+    LegalPosition <|-- Obligation
+    LegalPosition <|-- Power
+    Situation <|-- LegalSituation
+    AbstractEvent <|-- Event
+    AbstractEvent <|-- DataTransfer
+
+    %% ===== Compositions (<@>-) =====
+    Contract "1" *-- "2..*" LegalPosition : legalPositions
+    Contract "1" *-- "2..*" Role : roles
+    Policy "1" *-- "0..*" Rule : rules
+
+    %% ===== Associations =====
+    Contract "1..*" -- "2..*" Party : parties
+    Contract "1" -- "0..*" Asset : assets
+    Contract "0..1 parent" -- "0..* sub" Contract : subContracts
+    Contract "0..1 terminated" -- "0..*" Power : terminators
+
+    Role "1 debtor" -- "0..*" LegalPosition : debt
+    Role "1 creditor" -- "0..*" LegalPosition : credit
+    Party "0..1" -- "1..*" Role : party
+
+    Asset "*" -- "*" Party : owners
+    Asset "0..1" -- "0..*" LegalPosition : legalPositions
+
+    LegalPosition "* performerOf" -- "*" Party : performer
+    LegalPosition "* liableOf" -- "*" Party : liable
+    LegalPosition "* rightHolderOf" -- "*" Party : rightHolder
+    LegalPosition "0..*" -- "1" LegalSituation : antecedent
+    LegalPosition "0..*" -- "1" LegalSituation : consequent
+    LegalPosition "0..1" --> "0..1" LegalSituation : trigger
+    LegalPosition "1..*" -- "0..*" Event : legalPositionStateEvent
+    LegalPosition "1" -- "1" StateTransition : stateTransition
+
+    Situation "0..1 postState" -- "0..*" Event : preEvents
+    Situation "0..1 preState" -- "0..*" Event : postEvents
+    Situation "0..1" --> "1" TimeInterval : time
+
+    Event "0..1" --> "1" TimePoint : time
+    Event "*" -- "*" Role : performer
+
+    TimeInterval "0..1" --> "1" TimePoint : start
+    TimeInterval "0..1" --> "1" TimePoint : end
+
+    LegalSituation "0..1" -- "0..*" DataTransfer : data
+    LegalSituation "1" -- "0..*" Attribute : attributes
+
+    Power "0..1 changeState" --> "0..*" LegalPosition : legalPositions
+
+    Resource "*" -- "1..*" Role : controllers
+
+    Rule "0..1" -- "1" Resource : accessedResource
+    Rule "0..1" -- "1" Role : accessedRole
+    Rule "*" -- "1 constrainedBy" Policy : constraints
+
+    Operation "*" -- "*" Role : performer
+    Attribute "1..* inputAttributes" -- "1..*" Operation : consumerOperations
+    Attribute "0..* outputAttributes" -- "1" Operation : producerOperation
+
+    AbstractEvent "0..1" -- "1..*" Attribute : attributes
+
+    Credential "1" -- "1" Role : role
+    Credential "0..1" -- "0..* issuer" Authority : issuedBy
+
+    classDef ac fill:#eaf2ff,stroke:#3b6fb0,color:#0f2a4a
+    classDef core fill:#fff6e6,stroke:#c98a1b,color:#5a3a05

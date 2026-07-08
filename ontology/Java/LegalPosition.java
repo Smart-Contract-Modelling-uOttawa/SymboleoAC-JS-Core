@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
 
 // line 60 "model.ump"
-// line 275 "model.ump"
+// line 289 "model.ump"
 public class LegalPosition extends Resource
 {
 
@@ -20,7 +20,7 @@ public class LegalPosition extends Resource
   private LegalSituation antecedent;
   private LegalSituation consequent;
   private LegalSituation trigger;
-  private List<Event> LegalPositionStateEven;
+  private List<Event> legalPositionStateEvent;
   private StateTransition stateTransition;
   private Contract contract;
   private Role debtor;
@@ -47,7 +47,7 @@ public class LegalPosition extends Resource
     {
       throw new RuntimeException("Unable to create consequentOf due to consequent. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    LegalPositionStateEven = new ArrayList<Event>();
+    legalPositionStateEvent = new ArrayList<Event>();
     if (aStateTransition == null || aStateTransition.getLegalpositionST() != null)
     {
       throw new RuntimeException("Unable to create LegalPosition due to aStateTransition. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
@@ -86,7 +86,7 @@ public class LegalPosition extends Resource
     {
       throw new RuntimeException("Unable to create consequentOf due to consequent. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    LegalPositionStateEven = new ArrayList<Event>();
+    legalPositionStateEvent = new ArrayList<Event>();
     stateTransition = new StateTransition(this, allControllersForStateTransition);
     boolean didAddContract = setContract(aContract);
     if (!didAddContract)
@@ -220,33 +220,33 @@ public class LegalPosition extends Resource
     return has;
   }
   /* Code from template association_GetMany */
-  public Event getLegalPositionStateEven(int index)
+  public Event getLegalPositionStateEvent(int index)
   {
-    Event aLegalPositionStateEven = LegalPositionStateEven.get(index);
-    return aLegalPositionStateEven;
+    Event aLegalPositionStateEvent = legalPositionStateEvent.get(index);
+    return aLegalPositionStateEvent;
   }
 
-  public List<Event> getLegalPositionStateEven()
+  public List<Event> getLegalPositionStateEvent()
   {
-    List<Event> newLegalPositionStateEven = Collections.unmodifiableList(LegalPositionStateEven);
-    return newLegalPositionStateEven;
+    List<Event> newLegalPositionStateEvent = Collections.unmodifiableList(legalPositionStateEvent);
+    return newLegalPositionStateEvent;
   }
 
-  public int numberOfLegalPositionStateEven()
+  public int numberOfLegalPositionStateEvent()
   {
-    int number = LegalPositionStateEven.size();
+    int number = legalPositionStateEvent.size();
     return number;
   }
 
-  public boolean hasLegalPositionStateEven()
+  public boolean hasLegalPositionStateEvent()
   {
-    boolean has = LegalPositionStateEven.size() > 0;
+    boolean has = legalPositionStateEvent.size() > 0;
     return has;
   }
 
-  public int indexOfLegalPositionStateEven(Event aLegalPositionStateEven)
+  public int indexOfLegalPositionStateEvent(Event aLegalPositionStateEvent)
   {
-    int index = LegalPositionStateEven.indexOf(aLegalPositionStateEven);
+    int index = legalPositionStateEvent.indexOf(aLegalPositionStateEvent);
     return index;
   }
   /* Code from template association_GetOne */
@@ -573,84 +573,84 @@ public class LegalPosition extends Resource
     return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfLegalPositionStateEven()
+  public static int minimumNumberOfLegalPositionStateEvent()
   {
     return 0;
   }
   /* Code from template association_AddManyToManyMethod */
-  public boolean addLegalPositionStateEven(Event aLegalPositionStateEven)
+  public boolean addLegalPositionStateEvent(Event aLegalPositionStateEvent)
   {
     boolean wasAdded = false;
-    if (LegalPositionStateEven.contains(aLegalPositionStateEven)) { return false; }
-    LegalPositionStateEven.add(aLegalPositionStateEven);
-    if (aLegalPositionStateEven.indexOfLegalPositionSE(this) != -1)
+    if (legalPositionStateEvent.contains(aLegalPositionStateEvent)) { return false; }
+    legalPositionStateEvent.add(aLegalPositionStateEvent);
+    if (aLegalPositionStateEvent.indexOfLegalPositionSE(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aLegalPositionStateEven.addLegalPositionSE(this);
+      wasAdded = aLegalPositionStateEvent.addLegalPositionSE(this);
       if (!wasAdded)
       {
-        LegalPositionStateEven.remove(aLegalPositionStateEven);
+        legalPositionStateEvent.remove(aLegalPositionStateEvent);
       }
     }
     return wasAdded;
   }
   /* Code from template association_RemoveMany */
-  public boolean removeLegalPositionStateEven(Event aLegalPositionStateEven)
+  public boolean removeLegalPositionStateEvent(Event aLegalPositionStateEvent)
   {
     boolean wasRemoved = false;
-    if (!LegalPositionStateEven.contains(aLegalPositionStateEven))
+    if (!legalPositionStateEvent.contains(aLegalPositionStateEvent))
     {
       return wasRemoved;
     }
 
-    int oldIndex = LegalPositionStateEven.indexOf(aLegalPositionStateEven);
-    LegalPositionStateEven.remove(oldIndex);
-    if (aLegalPositionStateEven.indexOfLegalPositionSE(this) == -1)
+    int oldIndex = legalPositionStateEvent.indexOf(aLegalPositionStateEvent);
+    legalPositionStateEvent.remove(oldIndex);
+    if (aLegalPositionStateEvent.indexOfLegalPositionSE(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aLegalPositionStateEven.removeLegalPositionSE(this);
+      wasRemoved = aLegalPositionStateEvent.removeLegalPositionSE(this);
       if (!wasRemoved)
       {
-        LegalPositionStateEven.add(oldIndex,aLegalPositionStateEven);
+        legalPositionStateEvent.add(oldIndex,aLegalPositionStateEvent);
       }
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addLegalPositionStateEvenAt(Event aLegalPositionStateEven, int index)
+  public boolean addLegalPositionStateEventAt(Event aLegalPositionStateEvent, int index)
   {  
     boolean wasAdded = false;
-    if(addLegalPositionStateEven(aLegalPositionStateEven))
+    if(addLegalPositionStateEvent(aLegalPositionStateEvent))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfLegalPositionStateEven()) { index = numberOfLegalPositionStateEven() - 1; }
-      LegalPositionStateEven.remove(aLegalPositionStateEven);
-      LegalPositionStateEven.add(index, aLegalPositionStateEven);
+      if(index > numberOfLegalPositionStateEvent()) { index = numberOfLegalPositionStateEvent() - 1; }
+      legalPositionStateEvent.remove(aLegalPositionStateEvent);
+      legalPositionStateEvent.add(index, aLegalPositionStateEvent);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveLegalPositionStateEvenAt(Event aLegalPositionStateEven, int index)
+  public boolean addOrMoveLegalPositionStateEventAt(Event aLegalPositionStateEvent, int index)
   {
     boolean wasAdded = false;
-    if(LegalPositionStateEven.contains(aLegalPositionStateEven))
+    if(legalPositionStateEvent.contains(aLegalPositionStateEvent))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfLegalPositionStateEven()) { index = numberOfLegalPositionStateEven() - 1; }
-      LegalPositionStateEven.remove(aLegalPositionStateEven);
-      LegalPositionStateEven.add(index, aLegalPositionStateEven);
+      if(index > numberOfLegalPositionStateEvent()) { index = numberOfLegalPositionStateEvent() - 1; }
+      legalPositionStateEvent.remove(aLegalPositionStateEvent);
+      legalPositionStateEvent.add(index, aLegalPositionStateEvent);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addLegalPositionStateEvenAt(aLegalPositionStateEven, index);
+      wasAdded = addLegalPositionStateEventAt(aLegalPositionStateEvent, index);
     }
     return wasAdded;
   }
@@ -773,13 +773,19 @@ public class LegalPosition extends Resource
       placeholderConsequent.removeConsequentOf(this);
     }
     trigger = null;
-    while (LegalPositionStateEven.size() > 0)
+    ArrayList<Event> copyOfLegalPositionStateEvent = new ArrayList<Event>(legalPositionStateEvent);
+    legalPositionStateEvent.clear();
+    for(Event aLegalPositionStateEvent : copyOfLegalPositionStateEvent)
     {
-      Event aLegalPositionStateEven = LegalPositionStateEven.get(LegalPositionStateEven.size() - 1);
-      aLegalPositionStateEven.delete();
-      LegalPositionStateEven.remove(aLegalPositionStateEven);
+      if (aLegalPositionStateEvent.numberOfLegalPositionSE() <= Event.minimumNumberOfLegalPositionSE())
+      {
+        aLegalPositionStateEvent.delete();
+      }
+      else
+      {
+        aLegalPositionStateEvent.removeLegalPositionSE(this);
+      }
     }
-    
     StateTransition existingStateTransition = stateTransition;
     stateTransition = null;
     if (existingStateTransition != null)

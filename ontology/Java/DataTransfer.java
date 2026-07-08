@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
@@ -7,23 +7,23 @@ import java.util.*;
 /**
  * For Access Control
  */
-// line 234 "model.ump"
-// line 353 "model.ump"
-public class Data extends AbstractEvent
+// line 219 "model.ump"
+// line 354 "model.ump"
+public class DataTransfer extends AbstractEvent
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Data Associations
+  //DataTransfer Associations
   private LegalSituation legalSituationD;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Data(Role[] allControllers, Attribute[] allAttributes)
+  public DataTransfer(Role[] allControllers, Attribute[] allAttributes)
   {
     super(allControllers, allAttributes);
   }

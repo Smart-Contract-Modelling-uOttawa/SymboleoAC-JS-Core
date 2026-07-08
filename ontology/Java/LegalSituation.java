@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
 
-// line 101 "model.ump"
-// line 306 "model.ump"
+// line 100 "model.ump"
+// line 314 "model.ump"
 public class LegalSituation extends Situation
 {
 
@@ -14,7 +14,7 @@ public class LegalSituation extends Situation
   //------------------------
 
   //LegalSituation Associations
-  private List<Data> data;
+  private List<DataTransfer> data;
   private List<Attribute> attributes;
   private List<LegalPosition> antecedentOf;
   private List<LegalPosition> consequentOf;
@@ -26,7 +26,7 @@ public class LegalSituation extends Situation
   public LegalSituation(TimeInterval aTime)
   {
     super(aTime);
-    data = new ArrayList<Data>();
+    data = new ArrayList<DataTransfer>();
     attributes = new ArrayList<Attribute>();
     antecedentOf = new ArrayList<LegalPosition>();
     consequentOf = new ArrayList<LegalPosition>();
@@ -36,18 +36,18 @@ public class LegalSituation extends Situation
   // INTERFACE
   //------------------------
   /* Code from template association_GetMany */
-  public Data getData(int index)
+  public DataTransfer getData(int index)
   {
-    Data aData = data.get(index);
+    DataTransfer aData = data.get(index);
     return aData;
   }
 
   /**
    * For Access Control
    */
-  public List<Data> getData()
+  public List<DataTransfer> getData()
   {
-    List<Data> newData = Collections.unmodifiableList(data);
+    List<DataTransfer> newData = Collections.unmodifiableList(data);
     return newData;
   }
 
@@ -63,7 +63,7 @@ public class LegalSituation extends Situation
     return has;
   }
 
-  public int indexOfData(Data aData)
+  public int indexOfData(DataTransfer aData)
   {
     int index = data.indexOf(aData);
     return index;
@@ -164,7 +164,7 @@ public class LegalSituation extends Situation
     return 0;
   }
   /* Code from template association_AddManyToOptionalOne */
-  public boolean addData(Data aData)
+  public boolean addData(DataTransfer aData)
   {
     boolean wasAdded = false;
     if (data.contains(aData)) { return false; }
@@ -186,7 +186,7 @@ public class LegalSituation extends Situation
     return wasAdded;
   }
 
-  public boolean removeData(Data aData)
+  public boolean removeData(DataTransfer aData)
   {
     boolean wasRemoved = false;
     if (data.contains(aData))
@@ -198,7 +198,7 @@ public class LegalSituation extends Situation
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addDataAt(Data aData, int index)
+  public boolean addDataAt(DataTransfer aData, int index)
   {  
     boolean wasAdded = false;
     if(addData(aData))
@@ -212,7 +212,7 @@ public class LegalSituation extends Situation
     return wasAdded;
   }
 
-  public boolean addOrMoveDataAt(Data aData, int index)
+  public boolean addOrMoveDataAt(DataTransfer aData, int index)
   {
     boolean wasAdded = false;
     if(data.contains(aData))
@@ -448,20 +448,15 @@ public class LegalSituation extends Situation
 
   public void delete()
   {
-    while (data.size() > 0)
+    while( !data.isEmpty() )
     {
-      Data aData = data.get(data.size() - 1);
-      aData.delete();
-      data.remove(aData);
+      data.get(0).setLegalSituationD(null);
     }
-    
-    while (attributes.size() > 0)
+    for(int i=attributes.size(); i > 0; i--)
     {
-      Attribute aAttribute = attributes.get(attributes.size() - 1);
+      Attribute aAttribute = attributes.get(i - 1);
       aAttribute.delete();
-      attributes.remove(aAttribute);
     }
-    
     for(int i=antecedentOf.size(); i > 0; i--)
     {
       LegalPosition aAntecedentOf = antecedentOf.get(i - 1);

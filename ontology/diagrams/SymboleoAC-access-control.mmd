@@ -1,0 +1,71 @@
+%% SymboleoAC metamodel - Access-Control layer view
+%% Generated from ontology/SymboleoAC.ump. Role (amber) is the shared anchor with the legal core.
+classDiagram
+    direction LR
+
+    class Action:::ac {
+        <<enumeration>>
+        read
+        write
+        all
+        transfer
+    }
+    class Decision:::ac {
+        <<enumeration>>
+        Grant
+        Revoke
+    }
+
+    class Resource:::ac
+    class Role:::core
+    class Policy:::ac
+    class Rule:::ac {
+        Action action
+        Decision decision
+    }
+    class Operation:::ac {
+        Condition preCondition
+        Condition postCondition
+    }
+    class Attribute:::ac
+    class AbstractEvent:::ac
+    class Event:::ac
+    class DataTransfer:::ac
+    class StateTransition:::ac
+    class Condition:::ac {
+        String leftSide
+        String op
+        String rightSide
+    }
+    class Credential:::ac {
+        String subjectName
+        String subjectOrg
+        String subjectDept
+    }
+    class Authority:::ac {
+        String name
+    }
+
+    Resource <|-- Role
+    Resource <|-- Policy
+    Resource <|-- Operation
+    Resource <|-- Attribute
+    Resource <|-- StateTransition
+    Resource <|-- AbstractEvent
+    AbstractEvent <|-- Event
+    AbstractEvent <|-- DataTransfer
+
+    Resource "*" -- "1..*" Role : controllers
+    Policy "1" *-- "0..*" Rule : rules
+    Policy "1 constrainedBy" -- "*" Rule : constraints
+    Rule "0..1" -- "1" Resource : accessedResource
+    Rule "0..1" -- "1" Role : accessedRole
+    Operation "*" -- "*" Role : performer
+    Attribute "1..* inputAttributes" -- "1..*" Operation : consumerOperations
+    Attribute "0..* outputAttributes" -- "1" Operation : producerOperation
+    AbstractEvent "0..1" -- "1..*" Attribute : attributes
+    Credential "1" -- "1" Role : role
+    Credential "0..1" -- "0..* issuer" Authority : issuedBy
+
+    classDef ac fill:#eaf2ff,stroke:#3b6fb0,color:#0f2a4a
+    classDef core fill:#fff6e6,stroke:#c98a1b,color:#5a3a05
