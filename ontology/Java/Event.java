@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
 
-// line 83 "model.ump"
-// line 290 "model.ump"
+// line 82 "model.ump"
+// line 299 "model.ump"
 public class Event extends AbstractEvent
 {
 
@@ -240,13 +240,13 @@ public class Event extends AbstractEvent
     boolean wasAdded = false;
     if (legalPositionSE.contains(aLegalPositionSE)) { return false; }
     legalPositionSE.add(aLegalPositionSE);
-    if (aLegalPositionSE.indexOfLegalPositionStateEven(this) != -1)
+    if (aLegalPositionSE.indexOfLegalPositionStateEvent(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aLegalPositionSE.addLegalPositionStateEven(this);
+      wasAdded = aLegalPositionSE.addLegalPositionStateEvent(this);
       if (!wasAdded)
       {
         legalPositionSE.remove(aLegalPositionSE);
@@ -270,13 +270,13 @@ public class Event extends AbstractEvent
 
     int oldIndex = legalPositionSE.indexOf(aLegalPositionSE);
     legalPositionSE.remove(oldIndex);
-    if (aLegalPositionSE.indexOfLegalPositionStateEven(this) == -1)
+    if (aLegalPositionSE.indexOfLegalPositionStateEvent(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aLegalPositionSE.removeLegalPositionStateEven(this);
+      wasRemoved = aLegalPositionSE.removeLegalPositionStateEvent(this);
       if (!wasRemoved)
       {
         legalPositionSE.add(oldIndex,aLegalPositionSE);
@@ -314,13 +314,13 @@ public class Event extends AbstractEvent
       }
       else
       {
-        aNewLegalPositionSE.addLegalPositionStateEven(this);
+        aNewLegalPositionSE.addLegalPositionStateEvent(this);
       }
     }
 
     for (LegalPosition anOldLegalPositionSE : oldLegalPositionSE)
     {
-      anOldLegalPositionSE.removeLegalPositionStateEven(this);
+      anOldLegalPositionSE.removeLegalPositionStateEvent(this);
     }
     wasSet = true;
     return wasSet;
@@ -405,7 +405,7 @@ public class Event extends AbstractEvent
     legalPositionSE.clear();
     for(LegalPosition aLegalPositionSE : copyOfLegalPositionSE)
     {
-      aLegalPositionSE.removeLegalPositionStateEven(this);
+      aLegalPositionSE.removeLegalPositionStateEvent(this);
     }
     if (postState != null)
     {

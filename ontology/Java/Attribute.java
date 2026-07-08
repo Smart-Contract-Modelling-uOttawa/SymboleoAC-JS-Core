@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
@@ -7,8 +7,8 @@ import java.util.*;
 /**
  * For Access Control
  */
-// line 223 "model.ump"
-// line 343 "model.ump"
+// line 212 "model.ump"
+// line 349 "model.ump"
 public class Attribute extends Resource
 {
 
@@ -33,7 +33,7 @@ public class Attribute extends Resource
     boolean didAddProducerOperation = setProducerOperation(aProducerOperation);
     if (!didAddProducerOperation)
     {
-      throw new RuntimeException("Unable to create outputAttribut due to producerOperation. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Unable to create outputAttribute due to producerOperation. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddLegalSituationA = setLegalSituationA(aLegalSituationA);
     if (!didAddLegalSituationA)
@@ -113,13 +113,13 @@ public class Attribute extends Resource
     boolean wasAdded = false;
     if (consumerOperations.contains(aConsumerOperation)) { return false; }
     consumerOperations.add(aConsumerOperation);
-    if (aConsumerOperation.indexOfInputAttribut(this) != -1)
+    if (aConsumerOperation.indexOfInputAttribute(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aConsumerOperation.addInputAttribut(this);
+      wasAdded = aConsumerOperation.addInputAttribute(this);
       if (!wasAdded)
       {
         consumerOperations.remove(aConsumerOperation);
@@ -143,13 +143,13 @@ public class Attribute extends Resource
 
     int oldIndex = consumerOperations.indexOf(aConsumerOperation);
     consumerOperations.remove(oldIndex);
-    if (aConsumerOperation.indexOfInputAttribut(this) == -1)
+    if (aConsumerOperation.indexOfInputAttribute(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aConsumerOperation.removeInputAttribut(this);
+      wasRemoved = aConsumerOperation.removeInputAttribute(this);
       if (!wasRemoved)
       {
         consumerOperations.add(oldIndex,aConsumerOperation);
@@ -187,13 +187,13 @@ public class Attribute extends Resource
       }
       else
       {
-        aNewConsumerOperation.addInputAttribut(this);
+        aNewConsumerOperation.addInputAttribute(this);
       }
     }
 
     for (Operation anOldConsumerOperation : oldConsumerOperations)
     {
-      anOldConsumerOperation.removeInputAttribut(this);
+      anOldConsumerOperation.removeInputAttribute(this);
     }
     wasSet = true;
     return wasSet;
@@ -243,9 +243,9 @@ public class Attribute extends Resource
     producerOperation = aProducerOperation;
     if (existingProducerOperation != null && !existingProducerOperation.equals(aProducerOperation))
     {
-      existingProducerOperation.removeOutputAttribut(this);
+      existingProducerOperation.removeOutputAttribute(this);
     }
-    producerOperation.addOutputAttribut(this);
+    producerOperation.addOutputAttribute(this);
     wasSet = true;
     return wasSet;
   }
@@ -325,20 +325,20 @@ public class Attribute extends Resource
     consumerOperations.clear();
     for(Operation aConsumerOperation : copyOfConsumerOperations)
     {
-      if (aConsumerOperation.numberOfInputAttributs() <= Operation.minimumNumberOfInputAttributs())
+      if (aConsumerOperation.numberOfInputAttributes() <= Operation.minimumNumberOfInputAttributes())
       {
         aConsumerOperation.delete();
       }
       else
       {
-        aConsumerOperation.removeInputAttribut(this);
+        aConsumerOperation.removeInputAttribute(this);
       }
     }
     Operation placeholderProducerOperation = producerOperation;
     this.producerOperation = null;
     if(placeholderProducerOperation != null)
     {
-      placeholderProducerOperation.removeOutputAttribut(this);
+      placeholderProducerOperation.removeOutputAttribute(this);
     }
     LegalSituation placeholderLegalSituationA = legalSituationA;
     this.legalSituationA = null;

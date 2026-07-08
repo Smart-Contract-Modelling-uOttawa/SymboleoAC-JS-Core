@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
@@ -8,7 +8,7 @@ import java.util.*;
  * SymboleoAC (Symboleo ontology + Access Control ontology)
  */
 // line 4 "model.ump"
-// line 253 "model.ump"
+// line 269 "model.ump"
 public class Contract extends Resource
 {
 
@@ -576,9 +576,9 @@ public class Contract extends Resource
     return 2;
   }
   /* Code from template association_AddMandatoryManyToOne */
-  public Role addRole(Role... allControllers)
+  public Role addRole(Credential aCredentialFor, Role... allControllers)
   {
-    Role aNewRole = new Role(this, allControllers);
+    Role aNewRole = new Role(this, aCredentialFor, allControllers);
     return aNewRole;
   }
 

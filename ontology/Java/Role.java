@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
 
 // line 42 "model.ump"
-// line 265 "model.ump"
+// line 279 "model.ump"
 public class Role extends Resource
 {
 
@@ -20,14 +20,15 @@ public class Role extends Resource
   private Contract contract;
   private List<Event> performedEvent;
   private List<Resource> controlledResource;
-  private Rule ruleAccesseor;
+  private Rule ruleAccessor;
   private List<Operation> performedOperation;
+  private Credential credentialFor;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Role(Contract aContract, Role... allControllers)
+  public Role(Contract aContract, Credential aCredentialFor, Role... allControllers)
   {
     super(allControllers);
     debt = new ArrayList<LegalPosition>();
@@ -40,6 +41,27 @@ public class Role extends Resource
     performedEvent = new ArrayList<Event>();
     controlledResource = new ArrayList<Resource>();
     performedOperation = new ArrayList<Operation>();
+    if (aCredentialFor == null || aCredentialFor.getRole() != null)
+    {
+      throw new RuntimeException("Unable to create Role due to aCredentialFor. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    credentialFor = aCredentialFor;
+  }
+
+  public Role(Contract aContract, String aSubjectNameForCredentialFor, String aSubjectOrgForCredentialFor, String aSubjectDeptForCredentialFor, Role... allControllers)
+  {
+    super(allControllers);
+    debt = new ArrayList<LegalPosition>();
+    credit = new ArrayList<LegalPosition>();
+    boolean didAddContract = setContract(aContract);
+    if (!didAddContract)
+    {
+      throw new RuntimeException("Unable to create role due to contract. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    performedEvent = new ArrayList<Event>();
+    controlledResource = new ArrayList<Resource>();
+    performedOperation = new ArrayList<Operation>();
+    credentialFor = new Credential(aSubjectNameForCredentialFor, aSubjectOrgForCredentialFor, aSubjectDeptForCredentialFor, this);
   }
 
   //------------------------
@@ -182,14 +204,14 @@ public class Role extends Resource
     return index;
   }
   /* Code from template association_GetOne */
-  public Rule getRuleAccesseor()
+  public Rule getRuleAccessor()
   {
-    return ruleAccesseor;
+    return ruleAccessor;
   }
 
-  public boolean hasRuleAccesseor()
+  public boolean hasRuleAccessor()
   {
-    boolean has = ruleAccesseor != null;
+    boolean has = ruleAccessor != null;
     return has;
   }
   /* Code from template association_GetMany */
@@ -221,6 +243,11 @@ public class Role extends Resource
   {
     int index = performedOperation.indexOf(aPerformedOperation);
     return index;
+  }
+  /* Code from template association_GetOne */
+  public Credential getCredentialFor()
+  {
+    return credentialFor;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfDebt()
@@ -611,27 +638,27 @@ public class Role extends Resource
     return wasAdded;
   }
   /* Code from template association_SetOptionalOneToOne */
-  public boolean setRuleAccesseor(Rule aNewRuleAccesseor)
+  public boolean setRuleAccessor(Rule aNewRuleAccessor)
   {
     boolean wasSet = false;
-    if (ruleAccesseor != null && !ruleAccesseor.equals(aNewRuleAccesseor) && equals(ruleAccesseor.getAccessedRole()))
+    if (ruleAccessor != null && !ruleAccessor.equals(aNewRuleAccessor) && equals(ruleAccessor.getAccessedRole()))
     {
-      //Unable to setRuleAccesseor, as existing ruleAccesseor would become an orphan
+      //Unable to setRuleAccessor, as existing ruleAccessor would become an orphan
       return wasSet;
     }
 
-    ruleAccesseor = aNewRuleAccesseor;
-    Role anOldAccessedRole = aNewRuleAccesseor != null ? aNewRuleAccesseor.getAccessedRole() : null;
+    ruleAccessor = aNewRuleAccessor;
+    Role anOldAccessedRole = aNewRuleAccessor != null ? aNewRuleAccessor.getAccessedRole() : null;
 
     if (!this.equals(anOldAccessedRole))
     {
       if (anOldAccessedRole != null)
       {
-        anOldAccessedRole.ruleAccesseor = null;
+        anOldAccessedRole.ruleAccessor = null;
       }
-      if (ruleAccesseor != null)
+      if (ruleAccessor != null)
       {
-        ruleAccesseor.setAccessedRole(this);
+        ruleAccessor.setAccessedRole(this);
       }
     }
     wasSet = true;
@@ -770,17 +797,23 @@ public class Role extends Resource
         aControlledResource.removeController(this);
       }
     }
-    Rule existingRuleAccesseor = ruleAccesseor;
-    ruleAccesseor = null;
-    if (existingRuleAccesseor != null)
+    Rule existingRuleAccessor = ruleAccessor;
+    ruleAccessor = null;
+    if (existingRuleAccessor != null)
     {
-      existingRuleAccesseor.delete();
+      existingRuleAccessor.delete();
     }
     ArrayList<Operation> copyOfPerformedOperation = new ArrayList<Operation>(performedOperation);
     performedOperation.clear();
     for(Operation aPerformedOperation : copyOfPerformedOperation)
     {
       aPerformedOperation.removePerformer(this);
+    }
+    Credential existingCredentialFor = credentialFor;
+    credentialFor = null;
+    if (existingCredentialFor != null)
+    {
+      existingCredentialFor.delete();
     }
     super.delete();
   }

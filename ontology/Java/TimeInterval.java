@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 
-// line 93 "model.ump"
-// line 296 "model.ump"
+// line 92 "model.ump"
+// line 304 "model.ump"
 public class TimeInterval
 {
 

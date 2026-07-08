@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 
-// line 99 "model.ump"
-// line 301 "model.ump"
+// line 98 "model.ump"
+// line 309 "model.ump"
 public class TimePoint
 {
 

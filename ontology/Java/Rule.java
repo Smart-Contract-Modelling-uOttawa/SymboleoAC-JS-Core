@@ -1,13 +1,13 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 
 /**
  * For Access Control
  */
-// line 197 "model.ump"
-// line 331 "model.ump"
+// line 192 "model.ump"
+// line 339 "model.ump"
 public class Rule
 {
 
@@ -48,7 +48,7 @@ public class Rule
     boolean didAddAccessedRole = setAccessedRole(aAccessedRole);
     if (!didAddAccessedRole)
     {
-      throw new RuntimeException("Unable to create ruleAccesseor due to accessedRole. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Unable to create ruleAccessor due to accessedRole. See https://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddPolicy = setPolicy(aPolicy);
     if (!didAddPolicy)
@@ -145,24 +145,24 @@ public class Rule
     boolean wasSet = false;
     if (aNewAccessedRole == null)
     {
-      //Unable to setAccessedRole to null, as ruleAccesseor must always be associated to a accessedRole
+      //Unable to setAccessedRole to null, as ruleAccessor must always be associated to a accessedRole
       return wasSet;
     }
     
-    Rule existingRuleAccesseor = aNewAccessedRole.getRuleAccesseor();
-    if (existingRuleAccesseor != null && !equals(existingRuleAccesseor))
+    Rule existingRuleAccessor = aNewAccessedRole.getRuleAccessor();
+    if (existingRuleAccessor != null && !equals(existingRuleAccessor))
     {
-      //Unable to setAccessedRole, the current accessedRole already has a ruleAccesseor, which would be orphaned if it were re-assigned
+      //Unable to setAccessedRole, the current accessedRole already has a ruleAccessor, which would be orphaned if it were re-assigned
       return wasSet;
     }
     
     Role anOldAccessedRole = accessedRole;
     accessedRole = aNewAccessedRole;
-    accessedRole.setRuleAccesseor(this);
+    accessedRole.setRuleAccessor(this);
 
     if (anOldAccessedRole != null)
     {
-      anOldAccessedRole.setRuleAccesseor(null);
+      anOldAccessedRole.setRuleAccessor(null);
     }
     wasSet = true;
     return wasSet;
@@ -218,7 +218,7 @@ public class Rule
     accessedRole = null;
     if (existingAccessedRole != null)
     {
-      existingAccessedRole.setRuleAccesseor(null);
+      existingAccessedRole.setRuleAccessor(null);
     }
     Policy placeholderPolicy = policy;
     this.policy = null;

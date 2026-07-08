@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.34.0.7242.6b8819789 modeling language!*/
+/*This code was generated using the UMPLE 1.37.0.8639.dcaf9c798 modeling language!*/
 
 
 import java.util.*;
@@ -7,8 +7,8 @@ import java.util.*;
 /**
  * For Access Control
  */
-// line 245 "model.ump"
-// line 363 "model.ump"
+// line 229 "model.ump"
+// line 364 "model.ump"
 public class AbstractEvent extends Resource
 {
 

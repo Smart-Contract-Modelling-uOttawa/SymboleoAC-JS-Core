@@ -1,0 +1,64 @@
+%% SymboleoAC metamodel - Symboleo legal core view
+%% Generated from ontology/SymboleoAC.ump. See SymboleoAC-overview for the full model incl. the Access-Control layer.
+classDiagram
+    direction LR
+
+    class Contract:::core {
+        «state» status
+    }
+    class Party:::core
+    class Role:::core
+    class Asset:::core
+    class LegalPosition:::core
+    class Obligation:::core {
+        Boolean surviving
+        «state» status
+    }
+    class Power:::core {
+        «state» status
+    }
+    class Situation:::core
+    class LegalSituation:::core
+    class Event:::core
+    class TimeInterval:::core
+    class TimePoint:::core
+
+    LegalPosition <|-- Obligation
+    LegalPosition <|-- Power
+    Situation <|-- LegalSituation
+
+    Contract "1" *-- "2..*" LegalPosition : legalPositions
+    Contract "1" *-- "2..*" Role : roles
+    Contract "1..*" -- "2..*" Party : parties
+    Contract "1" -- "0..*" Asset : assets
+    Contract "0..1 parent" -- "0..* sub" Contract : subContracts
+    Contract "0..1 terminated" -- "0..*" Power : terminators
+
+    Role "1 debtor" -- "0..*" LegalPosition : debt
+    Role "1 creditor" -- "0..*" LegalPosition : credit
+    Party "0..1" -- "1..*" Role : party
+
+    Asset "*" -- "*" Party : owners
+    Asset "0..1" -- "0..*" LegalPosition : legalPositions
+
+    LegalPosition "* performerOf" -- "*" Party : performer
+    LegalPosition "* liableOf" -- "*" Party : liable
+    LegalPosition "* rightHolderOf" -- "*" Party : rightHolder
+    LegalPosition "0..*" -- "1" LegalSituation : antecedent
+    LegalPosition "0..*" -- "1" LegalSituation : consequent
+    LegalPosition "0..1" --> "0..1" LegalSituation : trigger
+    LegalPosition "1..*" -- "0..*" Event : legalPositionStateEvent
+
+    Power "0..1 changeState" --> "0..*" LegalPosition : legalPositions
+
+    Situation "0..1 postState" -- "0..*" Event : preEvents
+    Situation "0..1 preState" -- "0..*" Event : postEvents
+    Situation "0..1" --> "1" TimeInterval : time
+
+    Event "0..1" --> "1" TimePoint : time
+    Event "*" -- "*" Role : performer
+
+    TimeInterval "0..1" --> "1" TimePoint : start
+    TimeInterval "0..1" --> "1" TimePoint : end
+
+    classDef core fill:#fff6e6,stroke:#c98a1b,color:#5a3a05
